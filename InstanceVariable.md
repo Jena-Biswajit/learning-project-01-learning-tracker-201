@@ -11,6 +11,11 @@
 - **Default values:** If an instance variable is not explicitly initialized, it will have a default value based on its type (e.g., 0 for int, null for objects, false for boolean).
 - **Instance vs Static variables:** Unlike instance variables, static variables belong to the class itself, and they are shared across all instances of the class.
 
+**Syntax**
+```java
+<access_modifier> <data_type> <variable_name>;
+```
+
 **Example**
 ```java
 public class InstanceVariable
