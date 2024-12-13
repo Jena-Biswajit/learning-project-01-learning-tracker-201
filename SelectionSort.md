@@ -12,7 +12,7 @@
 
 ### Time Complexity:
 - **Worst-case time complexity:** O(n^2)when the list is in reverse order.
-- **Best-case time complexity:** O(n) when the list is already sorted (with an optimized version that checks for swaps).
+- **Best-case time complexity:** O(n^2) when the list is already sorted (with an optimized version that checks for swaps).
 - **Average-case time complexity:** O(n^2)
   
 ### Space Complexity:
