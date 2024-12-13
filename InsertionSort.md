@@ -10,6 +10,14 @@
 - Insert the current element into its correct position in the sorted portion of the array.
 - Repeat this process for all remaining elements in the array.
 
+  ### Time Complexity:
+- **Worst-case time complexity:** O(n^2)when the list is in reverse order.
+- **Best-case time complexity:** O(n) when the list is already sorted (with an optimized version that checks for swaps).
+- **Average-case time complexity:** O(n^2)
+  
+### Space Complexity:
+- **space complexity:** O(1)
+
 **Example**
 ```java
 
