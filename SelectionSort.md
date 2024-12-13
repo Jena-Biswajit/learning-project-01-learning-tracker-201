@@ -9,3 +9,14 @@
 - **Swap the minimum element** found with the first unsorted element.
 - Move the boundary between the sorted and unsorted portions of the array one step forward.
 - **Repeat the process** for the remaining unsorted portion of the array until the whole array is sorted.
+
+### Time Complexity:
+- **Worst-case time complexity:** O(n^2)when the list is in reverse order.
+- **Best-case time complexity:** O(n) when the list is already sorted (with an optimized version that checks for swaps).
+- **Average-case time complexity:** O(n^2)
+  
+### Space Complexity:
+- **space complexity:** O(1)
+
+**Example**
+```java
