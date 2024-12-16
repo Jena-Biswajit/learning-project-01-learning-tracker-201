@@ -38,78 +38,6 @@ class Car extends AbstractCar implements Vehicle {
 }
 ```
 
-## Interface Declaration
-- An interface in Java is a blueprint of a class that specifies a set of methods (but not their implementations) that a class must implement.
-- Interfaces are used to achieve abstraction and multiple inheritance.
-- The Vehicle interface declares a method start() that any class implementing Vehicle must define.
-- Interfaces are used for abstraction and multiple inheritance.
-
-```
-interface InterfaceName {
-    // Constant fields (implicitly public, static, and final)
-    type CONSTANT_NAME = value;
-
-    // Abstract methods (implicitly public and abstract)
-    returnType methodName(parameters);
-
-    // Default methods (introduced in Java 8, can have a body)
-    default void defaultMethod() {
-        // method body
-    }
-
-    // Static methods (introduced in Java 8, can have a body)
-    static void staticMethod() {
-        // method body
-    }
-}
-```
-- Any field declared in an interface is automatically public, static, and final.
-- This means they must be constants and cannot be changed.
-- Abstract Methods declared in an interface are implicitly public and abstract.
-- Implementing classes must provide definitions for these methods.
-
-**Example**
-```java
-interface Vehicle {
-    void start();
-}
-```
-## Abstract Class Declaration
-- abstract class is a class that cannot be instantiated on its own.
--  It can have both abstract methods (methods without a body) and non-abstract methods (methods with a body).
-- Abstract classes are used as a base for other classes to extend, allowing the subclasses to implement or override the abstract methods.
-- An abstract class provides a base for other classes with or without complete implementations.
-- honk() is an abstract method, so any subclass must implement it.
-- The toString() method overrides the Object class method to provide a custom string representation of the Car object.
-- The Car class extends AbstractCar and implements the honk() method.
-- 
-
-**Example**
-```java
-abstract class AbstractCar {
-    abstract void honk();
-
-    @Override
-    public String toString() {
-        return "This is a car object.";
-    }
-}
-```
-
-## Consrtuctor
-- The constructor initializes model, color, and speed for a Car object using the this keyword.
-- It increments the static field totalCars to keep track of the number of Car instances created.
-- When new Car("Toyota", "Red", 60) is called, this constructor initializes the Toyota car's attributes.
-
-**Example**
-```java
-Car(String model, String color, int speed) {
-    this.model = model;
-    this.color = color;
-    this.speed = speed;
-    totalCars++;
-}
-```
 
 ## Static and Non static Method
 **Static Method**
@@ -180,6 +108,79 @@ void brake() {
 void brake(int amount) {
     speed -= amount;
     System.out.println("Braked by " + amount + ". New speed: " + speed);
+}
+```
+
+## Interface Declaration
+- An interface in Java is a blueprint of a class that specifies a set of methods (but not their implementations) that a class must implement.
+- Interfaces are used to achieve abstraction and multiple inheritance.
+- The Vehicle interface declares a method start() that any class implementing Vehicle must define.
+- Interfaces are used for abstraction and multiple inheritance.
+
+```
+interface InterfaceName {
+    // Constant fields (implicitly public, static, and final)
+    type CONSTANT_NAME = value;
+
+    // Abstract methods (implicitly public and abstract)
+    returnType methodName(parameters);
+
+    // Default methods (introduced in Java 8, can have a body)
+    default void defaultMethod() {
+        // method body
+    }
+
+    // Static methods (introduced in Java 8, can have a body)
+    static void staticMethod() {
+        // method body
+    }
+}
+```
+- Any field declared in an interface is automatically public, static, and final.
+- This means they must be constants and cannot be changed.
+- Abstract Methods declared in an interface are implicitly public and abstract.
+- Implementing classes must provide definitions for these methods.
+
+**Example**
+```java
+interface Vehicle {
+    void start();
+}
+```
+## Abstract Class Declaration
+- abstract class is a class that cannot be instantiated on its own.
+-  It can have both abstract methods (methods without a body) and non-abstract methods (methods with a body).
+- Abstract classes are used as a base for other classes to extend, allowing the subclasses to implement or override the abstract methods.
+- An abstract class provides a base for other classes with or without complete implementations.
+- honk() is an abstract method, so any subclass must implement it.
+- The toString() method overrides the Object class method to provide a custom string representation of the Car object.
+- The Car class extends AbstractCar and implements the honk() method.
+- 
+
+**Example**
+```java
+abstract class AbstractCar {
+    abstract void honk();
+
+    @Override
+    public String toString() {
+        return "This is a car object.";
+    }
+}
+```
+
+## Consrtuctor
+- The constructor initializes model, color, and speed for a Car object using the this keyword.
+- It increments the static field totalCars to keep track of the number of Car instances created.
+- When new Car("Toyota", "Red", 60) is called, this constructor initializes the Toyota car's attributes.
+
+**Example**
+```java
+Car(String model, String color, int speed) {
+    this.model = model;
+    this.color = color;
+    this.speed = speed;
+    totalCars++;
 }
 ```
 
