@@ -99,6 +99,21 @@ void brake() {
 }
 ```
 
+## Consrtuctor
+- The constructor initializes model, color, and speed for a Car object using the this keyword.
+- It increments the static field totalCars to keep track of the number of Car instances created.
+- When new Car("Toyota", "Red", 60) is called, this constructor initializes the Toyota car's attributes.
+
+**Example**
+```java
+Car(String model, String color, int speed) {
+    this.model = model;
+    this.color = color;
+    this.speed = speed;
+    totalCars++;
+}
+```
+
 ## Method overloading
 - The brake() method is overloaded to accept an int parameter, allowing braking by a specific amount.
 - Calling car1.brake(20) decreases the speed by 20 instead of the default 10.
@@ -166,21 +181,6 @@ abstract class AbstractCar {
     public String toString() {
         return "This is a car object.";
     }
-}
-```
-
-## Consrtuctor
-- The constructor initializes model, color, and speed for a Car object using the this keyword.
-- It increments the static field totalCars to keep track of the number of Car instances created.
-- When new Car("Toyota", "Red", 60) is called, this constructor initializes the Toyota car's attributes.
-
-**Example**
-```java
-Car(String model, String color, int speed) {
-    this.model = model;
-    this.color = color;
-    this.speed = speed;
-    totalCars++;
 }
 ```
 
