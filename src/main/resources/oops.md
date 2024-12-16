@@ -16,6 +16,165 @@
 - Objects make it easy to represent real-world entities with both data (state) and actions (behavior).
 - Example: A Car object represents a specific car (like a Toyota) with properties like color and speed, and actions like accelerating or braking.
 
+
+## Static and Non static fields
+**Non-Static Fields:**
+- model, color, and speed are specific to each instance of the Car class.
+**Static Field:**
+**Example**
+```java
+class Car extends AbstractCar implements Vehicle {
+    String model;  // Non-static field
+    String color;  // Non-static field
+    int speed;     // Non-static field
+
+    static int totalCars = 0;  // Static field
+}
+```
+
+## Interface Declaration
+- An interface in Java is a blueprint of a class that specifies a set of methods (but not their implementations) that a class must implement.
+- Interfaces are used to achieve abstraction and multiple inheritance.
+- The Vehicle interface declares a method start() that any class implementing Vehicle must define.
+
+**Syntax**
+- The Vehicle interface declares a method start() that any class implementing Vehicle must define.
+- Interfaces are used for abstraction and multiple inheritance.
+```
+interface InterfaceName {
+    // Constant fields (implicitly public, static, and final)
+    type CONSTANT_NAME = value;
+
+    // Abstract methods (implicitly public and abstract)
+    returnType methodName(parameters);
+
+    // Default methods (introduced in Java 8, can have a body)
+    default void defaultMethod() {
+        // method body
+    }
+
+    // Static methods (introduced in Java 8, can have a body)
+    static void staticMethod() {
+        // method body
+    }
+}
+```
+- Any field declared in an interface is automatically public, static, and final.
+- This means they must be constants and cannot be changed.
+- Abstract Methods declared in an interface are implicitly public and abstract.
+- Implementing classes must provide definitions for these methods.
+
+**Example**
+```java
+interface Vehicle {
+    void start();
+}
+```
+## Abstract Class Declaration
+- An abstract class provides a base for other classes with or without complete implementations.
+- honk() is an abstract method, so any subclass must implement it.
+- The toString() method overrides the Object class method to provide a custom string representation of the Car object.
+- The Car class extends AbstractCar and implements the honk() method.
+
+**Example**
+```java
+abstract class AbstractCar {
+    abstract void honk();
+
+    @Override
+    public String toString() {
+        return "This is a car object.";
+    }
+}
+```
+
+## Consrtuctor
+- The constructor initializes model, color, and speed for a Car object using the this keyword.
+- It increments the static field totalCars to keep track of the number of Car instances created.
+- When new Car("Toyota", "Red", 60) is called, this constructor initializes the Toyota car's attributes.
+
+**Example**
+```java
+Car(String model, String color, int speed) {
+    this.model = model;
+    this.color = color;
+    this.speed = speed;
+    totalCars++;
+}
+```
+
+## Static and Non static Method
+**Static Method**
+- A static method belongs to the class rather than any instance and can only access static fields directly.
+- displayTotalCars() prints the total number of Car objects created.
+- Calling Car.displayTotalCars() outputs the total cars created.
+- A static method in Java belongs to the class rather than an instance of the class.
+- It can be called without creating an object of the class.
+- Static methods are useful for functionality that doesn't depend on object-specific data.
+- totalCars is shared among all Car objects and counts the total cars created.
+- Static methods are associated with the class, not with any specific object.
+- You can call a static method using the class name, e.g., ClassName.methodName().
+  
+**Syntax**
+```java
+class ClassName {
+    // Static method
+    static returnType methodName(parameters) {
+        // Method body
+    }
+}
+```  
+  
+**Example**
+```java
+static void displayTotalCars() {
+    System.out.println("Total cars created: " + totalCars);
+}
+```
+**Non Static Method**
+- These methods can only be called on objects of the Car class and use the instance's speed field.
+- accelerate() increases the speed by 10.
+- brake() decreases the speed by 10.
+- Calling car1.accelerate() changes car1's speed and prints the updated value.
+- A non-static method is a method that belongs to an instance of a class.
+- It requires creating an object of the class to invoke it.
+- These methods have access to both instance variables and static variables.
+- A non-static method is declared without the static keyword.
+  
+**Syntax**
+```java
+class ClassName {
+    // Non-static method
+    returnType methodName(parameters) {
+        // Method body
+    }
+}
+```
+**Example**
+```java
+void accelerate() {
+    speed += 10;
+    System.out.println("Accelerated. New speed: " + speed);
+}
+
+void brake() {
+    speed -= 10;
+    System.out.println("Braked. New speed: " + speed);
+}
+```
+
+## Method overloading
+- The brake() method is overloaded to accept an int parameter, allowing braking by a specific amount.
+- Calling car1.brake(20) decreases the speed by 20 instead of the default 10.
+
+**Example**
+```java
+void brake(int amount) {
+    speed -= amount;
+    System.out.println("Braked by " + amount + ". New speed: " + speed);
+}
+```
+
 **Example**
 ```java
 // Define the class Car
@@ -62,6 +221,4 @@ public class Main {
     }
 }
 ```
-
-## Static and Non static fields
 
