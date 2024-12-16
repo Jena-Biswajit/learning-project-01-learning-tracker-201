@@ -20,7 +20,13 @@
 ## Static and Non static fields
 **Non-Static Fields:**
 - model, color, and speed are specific to each instance of the Car class.
+  
 **Static Field:**
+- Only one copy of the static field exists, regardless of how many objects of the class are created.
+- Static fields can be accessed using the class name (e.g., ClassName.fieldName) without creating an instance.
+- Static fields are stored in a fixed location in memory (Class Area), making them efficient for shared data.
+- static int totalCars is static field
+  
 **Example**
 ```java
 class Car extends AbstractCar implements Vehicle {
@@ -36,10 +42,8 @@ class Car extends AbstractCar implements Vehicle {
 - An interface in Java is a blueprint of a class that specifies a set of methods (but not their implementations) that a class must implement.
 - Interfaces are used to achieve abstraction and multiple inheritance.
 - The Vehicle interface declares a method start() that any class implementing Vehicle must define.
-
-**Syntax**
-- The Vehicle interface declares a method start() that any class implementing Vehicle must define.
 - Interfaces are used for abstraction and multiple inheritance.
+
 ```
 interface InterfaceName {
     // Constant fields (implicitly public, static, and final)
