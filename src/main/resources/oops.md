@@ -62,3 +62,6 @@ public class Main {
     }
 }
 ```
+
+## Static and Non static fields
+
