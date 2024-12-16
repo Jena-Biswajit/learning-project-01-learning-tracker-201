@@ -75,10 +75,14 @@ interface Vehicle {
 }
 ```
 ## Abstract Class Declaration
+- abstract class is a class that cannot be instantiated on its own.
+-  It can have both abstract methods (methods without a body) and non-abstract methods (methods with a body).
+- Abstract classes are used as a base for other classes to extend, allowing the subclasses to implement or override the abstract methods.
 - An abstract class provides a base for other classes with or without complete implementations.
 - honk() is an abstract method, so any subclass must implement it.
 - The toString() method overrides the Object class method to provide a custom string representation of the Car object.
 - The Car class extends AbstractCar and implements the honk() method.
+- 
 
 **Example**
 ```java
@@ -182,46 +186,104 @@ void brake(int amount) {
 **Example**
 ```java
 // Define the class Car
-class Car {
+// Define an Interface
+interface Vehicle {
+    void start();
+}
+
+// Abstract class defining shared properties of vehicles
+abstract class AbstractCar {
+    abstract void honk(); // Abstract method, must be implemented by subclasses
+
+    // Example of a method from the Object class being overridden
+    @Override
+    public String toString() {
+        return "This is a car object.";
+    }
+}
+
+// Main Car class
+class Car extends AbstractCar implements Vehicle {
+    // Non-static fields (instance variables)
     String model;
     String color;
     int speed;
 
-    // Constructor for initializing the object
+    // Static field (shared among all objects)
+    static int totalCars = 0;
+
+    // Constructor to initialize the Car object
     Car(String model, String color, int speed) {
         this.model = model;
         this.color = color;
         this.speed = speed;
+        totalCars++; // Increment static field
     }
 
-    // Method inside the class to accelerate the car
+    // Non-static method (requires an instance to call)
     void accelerate() {
         speed += 10;
         System.out.println("Accelerated. New speed: " + speed);
     }
 
-    // Method inside the class to brake the car
+    // Non-static method (requires an instance to call)
     void brake() {
         speed -= 10;
         System.out.println("Braked. New speed: " + speed);
     }
 
-    // Method to display car details
+    // Method overloading (same name, different parameter list)
+    void brake(int amount) {
+        speed -= amount;
+        System.out.println("Braked by " + amount + ". New speed: " + speed);
+    }
+
+    // Static method (does not depend on an instance)
+    static void displayTotalCars() {
+        System.out.println("Total cars created: " + totalCars);
+    }
+
+    // Implementation of abstract method from AbstractCar
+    @Override
+    void honk() {
+        System.out.println("Honk! Beep Beep!");
+    }
+
+    // Implementation of interface method
+    @Override
+    public void start() {
+        System.out.println("Car started.");
+    }
+
+    // Non-static method to display car details
     void display() {
         System.out.println("Model: " + model + ", Color: " + color + ", Speed: " + speed);
     }
 }
 
-// Main class where program execution starts
+// Main class
 public class Main {
     public static void main(String[] args) {
-        // Create an object of Car class
-        Car myCar = new Car("Toyota", "Red", 60);
+        // Create objects of Car class
+        Car car1 = new Car("Toyota", "Red", 60);
+        Car car2 = new Car("Honda", "Blue", 70);
 
-        // Call methods on the object
-        myCar.display();
-        myCar.accelerate();
-        myCar.brake();
+        // Non-static method calls
+        car1.display();
+        car1.accelerate();
+        car1.brake();
+        car1.brake(20); // Demonstrates method overloading
+        car1.honk();
+        car1.start();
+
+        // Static method call (using the class name)
+        Car.displayTotalCars();
+
+        // Non-static method call for second object
+        car2.display();
+
+        // Overridden method from Object class
+        System.out.println(car1.toString());
     }
 }
 ```
