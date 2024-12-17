@@ -184,6 +184,90 @@ abstract class AbstractCar {
 }
 ```
 
+## Method overriding 
+- Method overriding occurs when a subclass (or implementing class) provides its specific implementation of a method
+  that is already defined in the parent class or interface.
+- This allows the subclass to define behavior appropriate to its context, which replaces the behavior in the parent class or interface.
+  
+**Overriding Interface Methods :** The Vehicle interface declares the start() method:
+```
+interface Vehicle {
+    void start();
+}
+```
+- The Car class implements this interface and provides a specific implementation for the start() method:
+```
+@Override
+public void start() {
+    System.out.println("Car started.");
+}
+```
+- Interfaces define a contract that implementing classes must follow.
+- Since the Vehicle interface declares start() without a body, the Car class must override it to provide functionality.
+  
+**Overriding Abstract Methods :** The AbstractCar class defines the honk() method as abstract:
+```
+abstract class AbstractCar {
+    abstract void honk();
+}
+```
+- The Car class overrides the honk() method with its specific behavior:
+```
+@Override
+void honk() {
+    System.out.println("Honk! Beep Beep!");
+}
+```
+- Abstract methods serve as a template for behavior that must be defined in subclasses.
+- Since AbstractCar declares honk() as abstract, any concrete subclass like Car is required to override it.
+
+**Overriding Methods from the Object Class :** The AbstractCar class overrides the toString() method:
+```
+@Override
+public String toString() {
+    return "This is a car object.";
+}
+```
+- The Car class inherits this overridden toString() method unless explicitly overridden again (it does not in this case).
+- When car1.toString() is called in the main() method, the toString() method from AbstractCar is used:
+```
+System.out.println(car1.toString());
+```
+- The toString() method in Object provides a default implementation that returns the object's memory reference.
+- Overriding it allows us to provide a more meaningful string representation of the object.
+
+## Subclass
+- A subclass in Java is a class that extends another class (the superclass) to inherit its properties and methods.
+- The subclass can also add its own methods or override methods from the superclass to provide specific implementations.
+  
+**Inheritance:**
+- A subclass inherits fields (properties) and methods from its superclass.
+- The keyword extends is used to create a subclass.
+
+**Access Superclass Members:**
+- A subclass can use the super keyword to call the superclass's constructor or methods.
+
+**Polymorphism:**
+- A subclass object can be treated as an instance of the superclass, enabling polymorphic behavior.
+
+- AbstractCar is the **superclass** because it is being extended by the Car class:  
+```
+abstract class AbstractCar {
+    abstract void honk(); // Abstract method
+    @Override
+    public String toString() {
+        return "This is a car object.";
+    }
+}
+```
+- Car is the **subclass** because it extends AbstractCar and inherits its methods:
+```
+class Car extends AbstractCar implements Vehicle {}
+```
+- A constructor from the superclass is not inherited but can be called using super().
+- Since AbstractCar declares honk() as abstract, the Car class **must** implement it.
+- The Car class inherits the toString() method from AbstractCar.
+
 **Example**
 ```java
 // Define the class Car
