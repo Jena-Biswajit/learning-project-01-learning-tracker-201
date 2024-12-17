@@ -39,6 +39,12 @@ Car car2 = new Car("Honda", "Blue", 70);
 ## Static and Non static fields
 **Non-Static Fields:**
 - model, color, and speed are specific to each instance of the Car class.
+- non-static fields (also called instance variables) are variables declared inside a class but
+  outside any method, and they belong to each instance (object) of the class.
+- Each object of the class has its own copy of the non-static fields.
+- Non-static fields belong to objects, not the class.
+- Each object of the class has a separate copy of the non-static fields.
+- To access or modify non-static fields, you must create an object of the class.
   
 **Static Field:**
 - Only one copy of the static field exists, regardless of how many objects of the class are created.
