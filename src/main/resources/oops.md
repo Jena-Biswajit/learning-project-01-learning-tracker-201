@@ -9,13 +9,32 @@
 - **Constructors:** Special methods to initialize objects when they are created.
 - **Access Modifiers:** To control visibility (e.g., public, private, etc.).
 
+**Syntax**
+```
+class ClassName {
+    // Fields (properties)
+    datatype field1;
+    datatype field2;
+
+    // Methods (behaviors)
+    returnType methodName() {
+        // Method body
+    }
+}
+```
+
+
+
 **Obects**
 - An object in Java is a specific instance of a class.
 - It is a concrete representation of a blueprint (class) that combines state (data) and behavior (methods).
 - A class defines what an object should have and do.
 - Objects make it easy to represent real-world entities with both data (state) and actions (behavior).
 - Example: A Car object represents a specific car (like a Toyota) with properties like color and speed, and actions like accelerating or braking.
-
+```
+Car car1 = new Car("Toyota", "Red", 60);
+Car car2 = new Car("Honda", "Blue", 70);
+```
 
 ## Static and Non static fields
 **Non-Static Fields:**
