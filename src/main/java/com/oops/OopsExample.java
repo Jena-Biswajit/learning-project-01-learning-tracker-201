@@ -1,5 +1,6 @@
+package com.oops;
 
-    interface Vehicle {
+interface Vehicle {
         void start();
     }
 
@@ -97,6 +98,6 @@
             car2.honk();
 
             // Overridden method from Object class
-            System.out.println(car1.toString());
+            String car1String = car1.toString();
         }
     }
