@@ -14,8 +14,8 @@
 | `boolean`   | 1 (or 1 bit)    | 1 bit ,Stores `true` or `false`.                   |
 
 
-**Primitive Data Types**
-Strings,Arrays,Classes,Interfaces and Enums,
+**Non-Primitive Data Types**
+Employee,User defined data types,Strings,Arrays,Classes,Interfaces and Enums,
 
 **Memory Comparison**
 - Primitive Data Types are storted in Stack
