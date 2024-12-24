@@ -10,8 +10,7 @@ class Person
         this("biswajit jena",25);
     }
     //parameterized Constructor
-    public  Person(String myName,int myAge)
-    {
+    public  Person(String myName,int myAge) {
       this.name= myName; // set name with same variable
       this.age= myAge; // set age with same variable
     }
