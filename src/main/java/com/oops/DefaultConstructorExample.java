@@ -6,7 +6,7 @@ class Person
     int age;
     // Default Constructor
     public  Person (){
-        // this keywork used to call parameterized Constructor
+        // this keyword used to call parameterized Constructor
         this("biswajit jena",25);
     }
     //parameterized Constructor
@@ -15,6 +15,7 @@ class Person
       this.age= myAge; // set age with same variable
     }
 
+
     void display() {
         System.out.println("Name: " + name + ", Age: " + age);
     }
@@ -22,8 +23,8 @@ class Person
 }
 public class DefaultConstructorExample {
     public static void main(String[] args) {
-        //creste object for MyDetails class
+        //create object for MyDetails class
         Person biswajit = new Person();
-        biswajit.display(); // to dispay detail
+        biswajit.display(); // to display detail
     }
 }
