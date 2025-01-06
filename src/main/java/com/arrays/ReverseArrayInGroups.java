@@ -1,8 +1,7 @@
 package com.arrays;
-import java.util.Arrays;
 
 
-public class ReverseAraayInGroups {
+public class ReverseArrayInGroups {
 
     public static void main(String[] args) {
         int[] arr = {5, 2, 7, 8, 1, 0, 3, 6};
