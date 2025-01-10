@@ -7,6 +7,7 @@ public class VectorExample {
     public static void main(String[] args) {
         // Create a Vector
         Vector<String> names = new Vector<>();
+        Vector<Object> vector = null;
         names.add("biswajit");
         names.add("chandan");
         names.add(1, "saroj"); // Insert at index 1
@@ -28,5 +29,12 @@ public class VectorExample {
 
         // Check if an element exists
         System.out.println(names.contains("biswajit")); // Output: true
+
+        // Check the capacity of the Vector
+
+        System.out.println("Capacity: " + vector.capacity()); // Default capacity is 10
+
+        // Check if the Vector contains an element
+        System.out.println("Contains 'Cherry': " + vector.contains("Cherry")); // true
     }
 }

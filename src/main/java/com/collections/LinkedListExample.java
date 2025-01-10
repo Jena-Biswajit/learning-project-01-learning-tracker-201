@@ -73,5 +73,42 @@ public class LinkedListExample {
         name9.add("chandan");
         name9.clear();
         System.out.println(name9); // Output: []
+
+        // Add elements at the beginning and end
+        List<String> name10 = new LinkedList<>();
+        ((LinkedList<String>) name10).addFirst("Alice"); // Adds to the front
+        ((LinkedList<String>) name10).addLast("Bob");    // Adds to the end
+        System.out.println("After addFirst and addLast: " + name10); // [Alice, Bob]
+
+        // Insert elements normally
+        names.add("Charlie");
+        names.add("Daisy");
+        System.out.println("After add: " + names); // [Alice, Bob, Charlie, Daisy]
+
+        // Offer elements (adds at the end, similar to addLast)
+        ((LinkedList<String>) names).offer("Eve");
+        System.out.println("After offer: " + names); // [Alice, Bob, Charlie, Daisy, Eve]
+
+        // OfferFirst and OfferLast
+        ((LinkedList<String>) names).offerFirst("Zara"); // Adds to the front
+        ((LinkedList<String>) names).offerLast("Yara");  // Adds to the end
+        System.out.println("After offerFirst and offerLast: " + names);
+        // [Zara, Alice, Bob, Charlie, Daisy, Eve, Yara]
+
+        // Remove first and last elements
+        ((LinkedList<String>) names).removeFirst(); // Removes Zara
+        ((LinkedList<String>) names).removeLast();  // Removes Yara
+        System.out.println("After removeFirst and removeLast: " + names);
+        // [Alice, Bob, Charlie, Daisy, Eve]
+
+        // Peek at first and last elements without removing
+        System.out.println("First element (peekFirst): " + ((LinkedList<String>) names).peekFirst()); // Alice
+        System.out.println("Last element (peekLast): " + ((LinkedList<String>) names).peekLast());   // Eve
+
+        // Poll first and last elements (removes and retrieves)
+        System.out.println("Polled first element: " + ((LinkedList<String>) names).pollFirst()); // Alice
+        System.out.println("Polled last element: " + ((LinkedList<String>) names).pollLast());   // Eve
+        System.out.println("After pollFirst and pollLast: " + names); // [Bob, Charlie, Daisy]
+
     }
 }
