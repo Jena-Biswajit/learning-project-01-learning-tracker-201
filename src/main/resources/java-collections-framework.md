@@ -2,6 +2,7 @@
 - In Java, the List, Set, and Map interfaces are part of the Java Collections Framework.
 - Each provides methods to manipulate collections of objects but serves different purposes:
 
+
 - **List:** Ordered collection that allows duplicates.
 - **Set:** Unordered collection that does not allow duplicates.
 - **Map:** Collection of key-value pairs where keys are unique.
