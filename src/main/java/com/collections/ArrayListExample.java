@@ -43,6 +43,7 @@ public class ArrayListExample {
         name5.add("chandan");
         name5.add("saroj");
         System.out.println(name5.subList(1, 3)); // Output: [chandan, saroj]
+        System.out.println(name5);
 
         List<String> name6 = new ArrayList<>();
         name6.add("biswajit");
