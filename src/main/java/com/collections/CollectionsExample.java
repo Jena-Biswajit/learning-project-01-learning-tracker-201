@@ -12,12 +12,6 @@ public class CollectionsExample {
         // array element
         int [] array = {1,2,3,4,5};
 
-        // add element in vector
-
-        Vector<Integer> integerVector = new Vector();
-        integerVector.add(1);
-        integerVector.add(2);
-
         // add element in hashTables it basically stored key value pair
         Hashtable<Integer,String> h = new Hashtable<>();
         h.put(1,"biswajit");
@@ -26,7 +20,6 @@ public class CollectionsExample {
         // display element
 
         System.out.println(Arrays.toString(array));
-        System.out.println(integerVector);
         System.out.println(h);
 
         // practice all available methods for list interface and their classes
@@ -82,6 +75,59 @@ public class CollectionsExample {
         // add element in head node of the linkedlist
         linkedlist.addFirst(41);
         System.out.println(linkedlist);
+
+        linkedlist.addLast(40);
+        System.out.println(linkedlist);
+
+
+        // it will include all existing element to the linkedlist again
+        linkedlist.addAll(2,linkedlist);
+
+        System.out.println(linkedlist);
+
+        linkedlist.addAll(3,linkedlist);
+
+        System.out.println(linkedlist);
+
+        linkedlist.listIterator(8);
+
+        System.out.println(linkedlist);
+
+        //Adds the specified element as the tail (last element) of this list.
+        linkedlist.offer(1);
+
+        System.out.println(linkedlist);
+
+        //Inserts the specified element at the front of this list.
+        linkedlist.offerFirst(98);
+
+        System.out.println(linkedlist);
+
+        //Inserts the specified element at the end of this list.
+        linkedlist.offerLast(3);
+
+        System.out.println(linkedlist);
+
+        // add element in vector
+
+        Vector<Integer> integerVector = new Vector();
+        integerVector.add(1);
+        integerVector.add(2);
+
+        System.out.println(integerVector);
+
+        // get() will return the value of required index
+        System.out.println(integerVector.get(0));
+
+        // it will replace element in a given index if the index not available then it
+        // will show index out of bounds error
+        integerVector.set(1,3);
+
+        System.out.println(integerVector.get(1));
+
+        // size of vector . initially the size of vector is 10
+        System.out.println("vector size "+integerVector.capacity());
+
     }
 
 }
