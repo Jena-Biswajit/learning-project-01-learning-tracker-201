@@ -15,6 +15,14 @@ public class IdentityHashMapExample {
         // Print the map
         System.out.println("IdentityHashMap: " + identityMap);
 
+        //o/p is name=Biswa, name=jit because IdentityHashMap uses (==) operator to compare
+        // keys so it will take duplicate as also a key
+
+        // Note : HashMap by default uses equals() to compare keys which is compared it's value
+        // whether in IdentityHashMap it is comparing using (==) operator which is compared it's
+        // reference or address which is different for both the keys that's even both are equal
+        // HashMap taking both the input as keys
+
         // Check the size of the map
         System.out.println("Size of IdentityHashMap: " + identityMap.size());
     }
