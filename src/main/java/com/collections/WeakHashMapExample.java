@@ -1,22 +1,42 @@
 package com.collections;
 import java.util.WeakHashMap;
 public class WeakHashMapExample {
-    public static void main(String[] args) {
-        WeakHashMap<String, String> weakMap = new WeakHashMap<>();
 
-        // Two keys created as new String objects
-        String name = new String("name");
-        String surName = new String("surName");
+    // Custom class to override finalize
+    static class Key {
+        private String name;
+
+        public Key(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        @Override
+        protected void finalize()  {
+            System.out.println("Finalizing Key: " + name);
+        }
+    }
+
+    public static void main(String[] args) {
+        WeakHashMap<Key, String> weakMap = new WeakHashMap<>();
+
+        // Two keys created as new Key objects
+        Key key1 = new Key("name");
+        Key key2 = new Key("surName");
 
         // Add both keys to WeakHashMap
-        weakMap.put(name, "Biswajit");
-        weakMap.put(surName, "jena");
+        weakMap.put(key1, "Biswajit");
+        weakMap.put(key2, "jena");
 
         // Print the map before garbage collection
         System.out.println("Before GC: " + weakMap);
 
         // Nullify one key to make it eligible for garbage collection
-        surName = null;
+        key2 = null;
 
         // Trigger garbage collection
         System.gc();
