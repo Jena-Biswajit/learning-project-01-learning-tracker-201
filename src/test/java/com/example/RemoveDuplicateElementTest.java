@@ -12,7 +12,6 @@ public class RemoveDuplicateElementTest {
         int len = array.length - 1;
         int index = 0;
         for (int i = 0; i <= len; i++) {
-
             boolean isDuplicate = false;
             for (int j = 0; j < index; j++) {
                 if (array[i] == array[j]) {
