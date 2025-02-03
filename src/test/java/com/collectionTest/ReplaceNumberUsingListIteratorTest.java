@@ -12,6 +12,11 @@ public class ReplaceNumberUsingListIteratorTest {
         // Initialize a LinkedList with some numbers
         LinkedList<Integer> numbers = new LinkedList<>(Arrays.asList(5, 6, 9, 8, 12, 7));
 
+        // Returns a fixed-size list backed by the specified array.
+        // Changes made to the array will be visible in the returned list,
+        // and changes made to the list will be visible in the array.
+        // Arrays.asList()
+
         System.out.println("Original List: "+numbers);
 
         // Get a ListIterator for the LinkedList

@@ -4,11 +4,11 @@ import java.util.HashSet;
 
 public class HashSetUsingEmployeeClass {
     public static void main(String[] args) {
-        HashSet<Employee> employees = new HashSet<>();
+        HashSet<Employee1> employees = new HashSet<>();
 
-        Employee e1 = new Employee(1, "Biswajit");
-        Employee e2 = new Employee(2, "jit");
-        Employee e3 = new Employee(1, "Biswajit"); // Duplicate
+        Employee1 e1 = new Employee1(1, "Biswajit");
+        Employee1 e2 = new Employee1(2, "jit");
+        Employee1 e3 = new Employee1(1, "Biswajit"); // Duplicate
 
         employees.add(e1);
         employees.add(e2);

@@ -8,7 +8,7 @@ public class HttpExample {
     public static void main(String[] args) {
         try {
             // URL to send the request to
-            URL url = new URL("https://jsonplaceholder.typicode.com/posts/1");
+            URL url = new URL("https://www.cricbuzz.com/");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             // Set request method
