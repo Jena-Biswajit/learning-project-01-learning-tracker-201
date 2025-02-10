@@ -8,9 +8,8 @@
 - File Handling is an integral part of any programming language as file handling enables us to store the output of any particular program in a file and allows us to perform certain operations on it.
 - file handling means reading and writing data to a file.
 
-![java-file-handling.drawio.png](..%2F..%2F..%2F..%2F..%2F..%2FDownloads%2Fjava-file-handling.drawio.png)
 
-
+![java_file_handling_flowchart.drawio.png](../../../../../../Pictures/java_file_handling_flowchart.drawio.png)
 
 ***Streams in Java***
 
