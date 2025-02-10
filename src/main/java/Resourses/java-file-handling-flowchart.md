@@ -9,9 +9,6 @@
 - file handling means reading and writing data to a file.
 
 
-![java_file_handling_flowchart.jpg](..%2F..%2F..%2F..%2F..%2F..%2FDownloads%2Fjava_file_handling_flowchart.jpg)
-
-
 
 - ***Streams in Java***
 
