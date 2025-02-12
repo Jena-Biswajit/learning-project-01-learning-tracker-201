@@ -1,6 +1,7 @@
 
 ## OutputStream
-- Output Streams are used to write data to files, network sockets, or other destinations. - Java provides different types of output streams based on the kind of data being written (bytes, characters, objects, etc.).
+- Output Streams are used to write data to files, network sockets, or other destinations. 
+- Java provides different types of output streams based on the kind of data being written (bytes, characters, objects, etc.).
 
 - ```FileOutputStream```
 - ```BufferedOutputStream```
