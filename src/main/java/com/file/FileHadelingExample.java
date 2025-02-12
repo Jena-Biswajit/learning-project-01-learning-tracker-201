@@ -44,13 +44,13 @@ public class FileHadelingExample {
             throw new RuntimeException(e);
         }
 
-        // Deleting a file
-//        File myFile = new File("createFile.txt");
-//        if(myFile.delete()){
-//            System.out.println("the file is deleted"+myFile.getName());
-//        }
-//        else{
-//            System.out.println("some problem occur while deleting the file");
-//        }
+       // Deleting a file
+    //    File myFile = new File("createFile.txt");
+    //    if(myFile.delete()){
+    //        System.out.println("the file is deleted"+myFile.getName());
+    //    }
+    //    else{
+    //        System.out.println("some problem occur while deleting the file");
+    //    }
     }
 }
