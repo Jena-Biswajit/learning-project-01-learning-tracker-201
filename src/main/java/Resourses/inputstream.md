@@ -64,5 +64,15 @@ InputStream obj = new FileInputStream();
 
 ***ObjectInputStream***
 
+- ObjectInputStream is a class in java.io that enables reading Java objects from a stream.
+- It is used for deserialization, meaning it reconstructs objects that were previously serialized using ObjectOutputStream.
+- Reads entire objects, not just raw bytes.
+- Supports complex objects with multiple fields.
+- Can read multiple objects from a single stream.
 
+***Example***
+
+```java
+
+```
 

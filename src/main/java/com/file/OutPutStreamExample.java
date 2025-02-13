@@ -1,7 +1,6 @@
 package com.file;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 // import java.io.*;
 import java.io.FileOutputStream;
@@ -63,7 +62,7 @@ public class OutPutStreamExample {
         try (FileOutputStream ofos = new FileOutputStream("createFile.txt");
             ObjectOutputStream oos = new ObjectOutputStream(ofos)) {
 
-            Person p = new Person("biswa",25);
+            Person1 p = new Person1("biswa",25);
             oos.writeObject(p); 
             System.out.println("object serialized successfully ");
 
