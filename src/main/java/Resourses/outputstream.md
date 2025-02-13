@@ -12,6 +12,13 @@
 - Output Streams are used to write data to files, network sockets, or other destinations.
 - Java provides different types of output streams based on the kind of data being written (bytes, characters, objects, etc.).
 
+***Common Methods of OutputStream:***
+
+- write() : Writes the specified byte to the output stream.
+- write(byte[] array) : Writes the bytes which are inside a specific array to the output stream.
+- close() : Closes the output stream.
+- flush() : Forces to write all the data present in an output stream to the destination.
+
 ***FileOutputStream***
 
 - It is a Java class in the java.io package used for writing binary data to files. 
