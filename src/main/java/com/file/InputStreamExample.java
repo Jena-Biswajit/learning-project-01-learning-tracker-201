@@ -24,7 +24,7 @@ public class InputStreamExample {
         
         // FileInputStreamExample 
 
-   `     try{
+       try{
             FileInputStream fis = new FileInputStream("createFile.txt");
 
             // BufferedInputStreamExample
@@ -50,6 +50,7 @@ public class InputStreamExample {
             System.out.print((char) i + " ");  // Convert byte to char
         }
 
+        // ObjectInputStreamExample
 
         try {
             FileInputStream fileIn = new FileInputStream("person.ser");
