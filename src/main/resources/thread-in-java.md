@@ -185,6 +185,13 @@
 - It coordinates data transfers between these devices and the computer’s memory.
 
 
+### What is a Core in a Processor?
+
+- A core in a processor is an independent processing unit within the CPU that can execute instructions.
+-  Modern processors have multiple cores, which allow them to perform multiple tasks simultaneously, improving performance and efficiency.
+
+- ***TODO***
+
 
 
 
