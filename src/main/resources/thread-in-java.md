@@ -330,18 +330,28 @@
 
 ***Why Use Threads Instead of Multiple Processes?***
 
- ***Threads**
+ ***Threads***
+
     - ```Memory Usage``` :  Share the same memory space .
+
     - ```Context Switching``` : Faster (since memory is shared).
+
     - ```Intercommunication``` : Easier (threads can directly share variables).
+
     - ```Creation Overhead``` : Lightweight.
+    
     - ```Use Case``` : Best for tasks that need shared data (e.g., web servers, gaming, simulations).
   
-  ***Processes**
+  ***Processes***
+
     - ```Memory Usage``` : Each process has a separate memory space.
+
     - ```Context Switching``` : Slower (since memory must be reloaded).
-    - ```Intercommunication``` : Harder (requires IPC like pipes, message queues).           
+
+    - ```Intercommunication``` : Harder (requires IPC like pipes, message queues).  
+
     - ```Creation Overhead``` : Heavy.          
+
     - ```Use Case``` : Best for independent tasks (e.g., running different applications).                   
 
 ***Benefits of Using Threads***  
