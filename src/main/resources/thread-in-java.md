@@ -266,19 +266,6 @@
 - Heap         : Stores dynamically allocated memory (malloc, new). Grows upwards.
 - Stack        : Stores function calls, local variables, and return addresses. Grows downwards.
 
-
-***Process Memory Space***
-
-+------------------------+  High Memory (Largest Address)
-|      Stack             |  ↓ Grows Down (Function Calls, Local Variables)
-+------------------------+
-|      Heap              |  ↑ Grows Up (Dynamic Memory Allocation)
-+------------------------+
-|      Data Segment      |  (Global & Static Variables)
-+------------------------+
-|      Text Segment      |  (Program Instructions - Code)
-
-
 ### Process Communication 
 
 - When multiple processes run in an operating system,they often need to exchange data or coordinate execution.
