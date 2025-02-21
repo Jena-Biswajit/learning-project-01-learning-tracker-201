@@ -62,7 +62,7 @@ class ClassName {
 ```  
   
 **Example**
-```java
+```
 static void displayTotalCars() {
     System.out.println("Total cars created: " + totalCars);
 }
@@ -87,7 +87,7 @@ class ClassName {
 }
 ```
 **Example**
-```java
+```
 void accelerate() {
     speed += 10;
     System.out.println("Accelerated. New speed: " + speed);
@@ -105,7 +105,7 @@ void brake() {
 - When new Car("Toyota", "Red", 60) is called, this constructor initializes the Toyota car's attributes.
 
 **Example**
-```java
+```
 Car(String model, String color, int speed) {
     this.model = model;
     this.color = color;
@@ -119,7 +119,7 @@ Car(String model, String color, int speed) {
 - Calling car1.brake(20) decreases the speed by 20 instead of the default 10.
 
 **Example**
-```java
+```
 void brake(int amount) {
     speed -= amount;
     System.out.println("Braked by " + amount + ". New speed: " + speed);
