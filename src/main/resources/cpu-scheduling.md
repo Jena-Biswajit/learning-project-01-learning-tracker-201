@@ -57,6 +57,25 @@
 
 ***Example (Time Quantum = 4ms)***
 
+- ***TODO***
+
+***2. Shortest Remaining Time First (SRTF)***
+- Preemptive version of Shortest Job First (SJF).
+- If a new process with a shorter burst time arrives, CPU switches to it.
+- Minimizes average waiting time.
+
+***Example***
+
+- ***TODO***
+
+***3. Preemptive Priority Scheduling***
+- Processes are assigned priorities (lower number = higher priority).
+- A higher-priority process preempts a lower-priority one.
+- Starvation can occur (solved using aging).
+
+***Example***
+
+- ***TODO***
 
 ***Key Concepts in CPU Scheduling***
 
