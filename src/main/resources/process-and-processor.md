@@ -103,6 +103,18 @@
 
 - During a process switch, the CPU saves the current process state and loads the state of the next process.
 
+***Context Switching Triggers***
+- The three different categories of context-switching triggers are as follows.
+  1. ***Interrupts :*** Interrupts: When a CPU requests that data be read from a disc 
+     if any interruptions occur, context switching automatically switches to a component of the hardware .
+     that can handle the interruptions more quickly.
+
+  2. ***Multitasking :*** The ability for a process to be switched from the CPU so that another process can run is known as context switching. 
+     When a process is switched, the previous state is retained so that the process can continue running at the same spot in the system.
+
+  3. ***User/Kernel switch :*** This trigger is used when the OS needed to switch between the user mode and kernel mode.
+     When switching between user mode and kernel/user mode is necessary, operating systems use the kernel/user switch.
+
 ***Steps in Process Switching***
 1. Save the current process state (registers, program counter, stack pointer).
 2. Move the current process to a ready/waiting queue.
@@ -121,3 +133,23 @@
 - If a CPU switches processes frequently (high context switch rate), system performance drops due to excessive time spent saving/loading states.
 
 - ***TODO*** 
+
+### What is Process Control Block(PCB)? 
+- So, The Process Control block(PCB) is also known as a Task Control Block. 
+- it represents a process in the Operating System. 
+- A process control block (PCB) is a data structure used by a computer to store all information about a process. 
+- It is also called the descriptive process. When a process is created (started or installed), the operating system creates a process manager.
+
+***State Diagram of Context Switching***
+![img_1.png](img_1.png)
+
+***Working Process Context Switching***
+- So the context switching of two processes, the priority-based process occurs in the ready queue of the process control block.
+- These are the following steps.
+   - The state of the current process must be saved for rescheduling.
+   - The process state contains records, credentials, and operating system-specific information stored on the PCB or switch.
+   - The PCB can be stored in a single layer in kernel memory or in a custom OS file.
+   - A handle has been added to the PCB to have the system ready to run.
+   - The operating system aborts the execution of the current process and selects a process from the waiting list by tuning its PCB.
+   - Load the PCB’s program counter and continue execution in the selected process.
+   - Process/thread values ​​can affect which processes are selected from the queue, this can be important.

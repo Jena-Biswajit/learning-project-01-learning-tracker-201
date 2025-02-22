@@ -3,6 +3,8 @@
 - CPU scheduling is the process of selecting which process or thread will execute next on the CPU.
 - It is essential for efficient multitasking and resource utilization in operating systems.
 
+![img.png](img.png)
+
 ***Key Goals of CPU Scheduling:***
 1. Maximize CPU Utilization (Keep CPU as busy as possible).
 2. Maximize Throughput (Increase the number of completed processes).
@@ -77,8 +79,54 @@
 
 - ***TODO***
 
+***Non-Preemptive***
+- Non-Preemptive Scheduling is a CPU scheduling technique where a process, once given the CPU, runs until completion or until it voluntarily releases the CPU.
+
+***Key Characteristics:***
+- No process interruption: The CPU cannot be taken away from a running process.
+
+- Simple and easy to implement: No complex context switching.
+
+- Less overhead: No need for preemption-related mechanisms.
+
+- Not suitable for interactive systems: Long-running processes may delay others.
+
+***Why is Non-Preemptive Scheduling Used?***
+- Suitable for batch processing systems where user interaction is minimal.
+
+- Ensures predictable execution as processes complete sequentially.
+
+- Less CPU overhead since context switching occurs only at process termination.
+
+***Types of Non-Preemptive Scheduling Algorithms***
+ 1. First Come First Serve (FCFS)
+    - The simplest scheduling algorithm.
+    - Processes are executed in the order of arrival.
+    - Disadvantage: Can cause convoy effect (longer processes delay shorter ones).
+
+- ***TODO***
+
+ 2. Shortest Job Next (SJN) / Shortest Job First (SJF)
+   - Process with the shortest burst time executes first.
+   - Minimizes average waiting time.
+   - Disadvantage: Requires prior knowledge of burst times.
+
+- ***TODO***
+
+ 3. Priority Scheduling (Non-Preemptive)
+   - Processes execute based on assigned priority.
+   - Lower number = Higher priority.
+   - Disadvantage: May cause starvation (low-priority processes may wait indefinitely).
+
+- ***TODO***
+
+
 ***Key Concepts in CPU Scheduling***
 
+### context switching.
+
+- ***TODO***
+- 
 ```Process States```
   - ***New:*** Process is being created.
   - ***Ready:*** Process is waiting in the queue for execution.
