@@ -21,8 +21,8 @@ public class SyncBlock {
     public static void main(String[] args) {
         BankAccountBlockSync account = new BankAccountBlockSync();
 
-        Thread t1 = new Thread(() -> account.withdraw("Alice", 800));
-        Thread t2 = new Thread(() -> account.withdraw("Bob", 800));
+        Thread t1 = new Thread(() -> account.withdraw("Biswa", 800));
+        Thread t2 = new Thread(() -> account.withdraw("Jit", 800));
 
         t1.start();
         t2.start();
