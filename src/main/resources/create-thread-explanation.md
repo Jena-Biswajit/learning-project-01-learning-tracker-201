@@ -432,6 +432,87 @@ Starts both threads, allowing them to run concurrently.
 
 ---
 
+### Java Daemon Threads Explained
+
+### 1. Code Explanation (Statement by Statement)
+
+```
+class DaemonThread extends Thread {
+    public void run() {
+        if (isDaemon()) {
+            System.out.println(Thread.currentThread().getName() + " is a daemon thread.");
+        } else {
+            System.out.println(Thread.currentThread().getName() + " is a user thread.");
+        }
+    }
+}
+```
+- Defines a class `DaemonThread` that extends `Thread`.
+- Overrides the `run()` method.
+- Uses `isDaemon()` to check if the current thread is a daemon.
+- Prints whether the thread is a **daemon** or **user** thread.
+
+### DaemonThreadExample Class
+```java
+public class DaemonThreadExample {
+    public static void main(String[] args) {
+```
+- Defines the `DaemonThreadExample` class with the `main` method, which is the entry point of the program.
+
+### Creating Threads
+```
+DaemonThread t1 = new DaemonThread();
+DaemonThread t2 = new DaemonThread();
+```
+- Creates two thread objects `t1` and `t2`.
+
+### Setting Daemon Thread
+```
+t1.setDaemon(true); // Must be set before starting the thread
+```
+- Sets `t1` as a **daemon** thread.
+- **Important:** `setDaemon(true)` must be called before `start()`, otherwise, it throws `IllegalThreadStateException`.
+
+### Starting Threads
+```
+t1.start();
+t2.start();
+```
+- Starts both threads, but only `t1` runs as a **daemon** thread, while `t2` is a **user** thread.
+
+### 2. Daemon vs. User Threads
+
+| Feature           | Daemon Thread                      | User Thread                            |
+|------------------|---------------------------------|----------------------------------|
+| Purpose          | Background tasks (e.g., GC)     | Main application tasks          |
+| Lifetime        | Terminates when all user threads end | Runs until execution completes |
+| Example        | Garbage Collector, Timer threads | Application logic, Main thread |
+| Priority       | Lower priority                    | Normal priority                  |
+
+### 3. Internal Working of Daemon Threads
+
+### How Java Handles Daemon Threads
+1. Java threads are managed by the **JVM Thread Scheduler**.
+2. A **daemon thread** runs in the background and provides support services.
+3. The **JVM automatically terminates daemon threads** when all **user threads** complete execution.
+4. JVM does not guarantee execution of daemon thread’s `finally` block, as they may terminate abruptly.
+
+### JVM Execution Flow
+1. `setDaemon(true)`: Marks a thread as daemon before `start()`.
+2. `start()`: Thread begins execution.
+3. If all **user threads finish**, the JVM stops all daemon threads.
+4. If a **daemon thread is the only running thread**, JVM terminates the program.
+
+### 4. Key Points About Daemon Threads
+- **Must be set before `start()` is called.**
+- **Daemon threads do not prevent JVM shutdown.**
+- **Used for background tasks** like **Garbage Collection**.
+- **Avoid using for critical tasks** (e.g., writing to files), as they can terminate unexpectedly.
+
+---
+
+
+
 
 
 
