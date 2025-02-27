@@ -7,3 +7,9 @@
 - In a multithreaded environment, multiple threads may try to modify a shared resource at the same time.
 - This can lead to inconsistent data, also known as a race condition.
 
+
+### Critical Section: TODO
+
+### Mutual Exclusion(mutex): TODO
+
+### DeadLock : TODO
