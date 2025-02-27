@@ -482,12 +482,12 @@ t2.start();
 
 ### 2. Daemon vs. User Threads
 
-| Feature           | Daemon Thread                      | User Thread                            |
-|------------------|---------------------------------|----------------------------------|
-| Purpose          | Background tasks (e.g., GC)     | Main application tasks          |
-| Lifetime        | Terminates when all user threads end | Runs until execution completes |
-| Example        | Garbage Collector, Timer threads | Application logic, Main thread |
-| Priority       | Lower priority                    | Normal priority                  |
+| Feature             | Daemon Thread                        | User Thread                         |
+|---------------------|--------------------------------------|-------------------------------------|
+| Purpose             | Background tasks (e.g., GC)          | Main application tasks              |
+| Lifetime            | Terminates when all user threads end | Runs until execution completes      |
+| Example             | Garbage Collector, Timer threads     | Application logic, Main thread      |
+| Priority            | Lower priority                       | Normal priority                     |
 
 ### 3. Internal Working of Daemon Threads
 
