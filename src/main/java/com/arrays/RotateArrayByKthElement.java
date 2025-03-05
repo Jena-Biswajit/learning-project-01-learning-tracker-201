@@ -15,7 +15,7 @@ class RotateArray {
                 array[i] = array[len - 1];
                 array[len - 1] = temp;
             }
-        }
+        }   
         System.out.println("array after rotate " + Arrays.toString(array));
     }
 }
