@@ -1,40 +1,47 @@
 package com.arrays;
 
-class GfG {
+public class segregatevenOddElements {
 
-    // Function to move all -ve element to end of array 
+    // Function to move all -ve element to end of array
     // in same order.
     static void segregateElements(int[] arr) {
-        int n = arr.length;
 
-        // Create an empty array to store result
-        int[] temp = new int[n];
-        int idx = 0;
+        // segregate negative element in order
+        // result would be -1 -3 -2 1 7 5 11 6 or
+        // 1 7 5 11 6 -1 -3 -2
 
-        // First fill non-negative elements into the 
-        // temporary array
-        for (int i = 0; i < n; i++) {
-            if (arr[i] >= 0)
-                temp[idx++] = arr[i];
+        int len = arr.length;
+        int start = 0, end = len - 1;
+        for (; start < end;) {
+
+            // first check for the negative element
+            if (arr[start] < 0) {
+                // do nothing and traverse
+                start++;
+            } else if (arr[end] > 0) {
+                end--;
+            }
+
+            else {
+
+                // swap the index and traverse
+                int temp = 0;
+                temp = arr[end];
+                arr[end] = arr[start];
+                arr[start] = temp;
+
+                start++;
+                end--;
+
+            }
         }
-
-        // Now fill negative elements into the 
-        // temporary array
-        for (int i = 0; i < n; i++) {
-            if (arr[i] < 0)
-                temp[idx++] = arr[i];
-        }
-
-        // copy the elements from temp to arr
-        System.arraycopy(temp, 0, arr, 0, n);
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, -1, -3, -2, 7, 5, 11, 6};
+        int[] arr = { 1, -1, -3,7, 5, 11, 6,-2 };
         segregateElements(arr);
 
-        for (int ele: arr)
+        for (int ele : arr)
             System.out.print(ele + " ");
     }
 }
-
