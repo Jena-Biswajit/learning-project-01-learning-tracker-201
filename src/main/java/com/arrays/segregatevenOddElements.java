@@ -20,10 +20,9 @@ public class segregatevenOddElements {
                 start++;
             } else if (arr[end] > 0) {
                 end--;
-            }
-            else {
+            } else {
 
-                // swap the index and traverse
+                // swap and traverse
                 int temp = 0;
                 temp = arr[end];
                 arr[end] = arr[start];
