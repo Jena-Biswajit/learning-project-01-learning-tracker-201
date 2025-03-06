@@ -10,31 +10,30 @@ public class segregatevenOddElements {
         // result would be -1 -3 -2 1 7 5 11 6 or
         // 1 7 5 11 6 -1 -3 -2
 
-        int len = arr.length;
-        int start = 0, end = len - 1;
-        for (; start < end;) {
+        int negIndex = 0; // Pointer for negative numbers
 
-            // first check for the negative element
-            if (arr[start] < 0) {
-                // do nothing and traverse
-                start++;
-            } else if (arr[end] > 0) {
-                end--;
-            } else {
+        for (int posIndex = 0; posIndex < arr.length; posIndex++) {
+            if (arr[posIndex] < 0) {
+                // If negative number found, shift elements right and insert at negIndex
+                int negNumber = arr[posIndex];
+                int tempIndex = posIndex;
 
-                // swap and traverse
-                int temp = 0;
-                temp = arr[end];
-                arr[end] = arr[start];
-                arr[start] = temp;
+                while (tempIndex > negIndex) {
+                    arr[tempIndex] = arr[tempIndex - 1];
+                    tempIndex--;
+                }
 
-                start++;
-                end--;
-
+                arr[negIndex] = negNumber;
+                negIndex++; // Move negative index forward
             }
+            // Use 'elseif' to ensure that positive numbers are left untouched
+            else if (arr[posIndex] >= 0) {
+                // Simply move to the next element
+                continue;
+            }
+
         }
     }
-
     public static void main(String[] args) {
         int[] arr = { 1, -1, -3, 7, 5, 11, 6, -2 };
         segregateElements(arr);
