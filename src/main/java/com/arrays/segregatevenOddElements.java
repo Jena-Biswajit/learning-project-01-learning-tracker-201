@@ -21,7 +21,6 @@ public class segregatevenOddElements {
             } else if (arr[end] > 0) {
                 end--;
             }
-
             else {
 
                 // swap the index and traverse
@@ -38,7 +37,7 @@ public class segregatevenOddElements {
     }
 
     public static void main(String[] args) {
-        int[] arr = { 1, -1, -3,7, 5, 11, 6,-2 };
+        int[] arr = { 1, -1, -3, 7, 5, 11, 6, -2 };
         segregateElements(arr);
 
         for (int ele : arr)
