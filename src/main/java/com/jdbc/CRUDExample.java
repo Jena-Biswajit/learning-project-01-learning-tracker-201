@@ -1,11 +1,12 @@
 package com.jdbc;
+
 import java.sql.*;
 
 public class CRUDExample {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/mydb";
         String user = "root";
-        String password = "password";
+        String password = "subhasmita";
 
         try {
             Connection conn = DriverManager.getConnection(url, user, password);
