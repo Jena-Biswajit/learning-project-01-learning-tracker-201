@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class CRUDExample {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/mydb";
+        String url = "jdbc:mysql://localhost:3306/mydatabase";
         String user = "root";
         String password = "subhasmita";
 
@@ -13,7 +13,7 @@ public class CRUDExample {
             Statement stmt = conn.createStatement();
 
             // CREATE (Insert)
-            String insertQuery = "INSERT INTO users (id, name, email) VALUES (1, 'John Doe', 'john@example.com')";
+            String insertQuery = "INSERT INTO users (id, name, email) VALUES (1, 'Biswajit Jena', 'biswajitjena529.com')";
             stmt.executeUpdate(insertQuery);
 
             // READ (Select)
@@ -23,7 +23,7 @@ public class CRUDExample {
             }
 
             // UPDATE
-            String updateQuery = "UPDATE users SET name='Jane Doe' WHERE id=1";
+            String updateQuery = "UPDATE users SET name='Biswajit Jena' WHERE id=1";
             stmt.executeUpdate(updateQuery);
 
             // DELETE
