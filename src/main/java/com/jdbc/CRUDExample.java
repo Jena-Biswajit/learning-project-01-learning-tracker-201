@@ -8,6 +8,13 @@ public class CRUDExample {
         String user = "root";
         String password = "subhasmita";
 
+           try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         try {
             Connection conn = DriverManager.getConnection(url, user, password);
             Statement stmt = conn.createStatement();
