@@ -1,40 +1,44 @@
 package com.arrays;
 
-class GfG {
+public class segregatevenOddElements {
 
-    // Function to move all -ve element to end of array 
+    // Function to move all -ve element to end of array
     // in same order.
     static void segregateElements(int[] arr) {
-        int n = arr.length;
 
-        // Create an empty array to store result
-        int[] temp = new int[n];
-        int idx = 0;
+        // segregate negative element in order
+        // result would be -1 -3 -2 1 7 5 11 6 or
+        // 1 7 5 11 6 -1 -3 -2
 
-        // First fill non-negative elements into the 
-        // temporary array
-        for (int i = 0; i < n; i++) {
-            if (arr[i] >= 0)
-                temp[idx++] = arr[i];
+        int negIndex = 0; // Pointer for negative numbers
+
+        for (int posIndex = 0; posIndex < arr.length; posIndex++) {
+            if (arr[posIndex] < 0) {
+                // If negative number found, shift elements right and insert at negIndex
+                int negNumber = arr[posIndex];
+                int tempIndex = posIndex;
+
+                while (tempIndex > negIndex) {
+                    arr[tempIndex] = arr[tempIndex - 1];
+                    tempIndex--;
+                }
+
+                arr[negIndex] = negNumber;
+                negIndex++; // Move negative index forward
+            }
+            // Use 'elseif' to ensure that positive numbers are left untouched
+            else if (arr[posIndex] >= 0) {
+                // Simply move to the next element
+                continue;
+            }
+
         }
-
-        // Now fill negative elements into the 
-        // temporary array
-        for (int i = 0; i < n; i++) {
-            if (arr[i] < 0)
-                temp[idx++] = arr[i];
-        }
-
-        // copy the elements from temp to arr
-        System.arraycopy(temp, 0, arr, 0, n);
     }
-
     public static void main(String[] args) {
-        int[] arr = {1, -1, -3, -2, 7, 5, 11, 6};
+        int[] arr = { 1, -1, -3, 7, 5, 11, 6, -2 };
         segregateElements(arr);
 
-        for (int ele: arr)
+        for (int ele : arr)
             System.out.print(ele + " ");
     }
 }
-
