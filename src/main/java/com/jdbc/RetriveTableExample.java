@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class RetriveTableExample {
     static String url = "jdbc:mysql://localhost:3306/mydatabase";
     static String user = "root";
-    static String password = "subhasmita";
+    static String password = "Bbiswajit@408";
 
     public static void main(String[] args) {
         try {

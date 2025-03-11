@@ -4,7 +4,7 @@ import java.sql.*;
 public class EmployeeDatabase {
     private static final String URL = "jdbc:mysql://localhost:3306/mydatabase";
     private static final String USER = "root";
-    private static final String PASSWORD = "subhasmita";
+    private static final String PASSWORD = "Bbiswajit@408";
 
     public void insertEmployee(String name, String department, double salary) {
         String query = "INSERT INTO Employee (name, department, salary) VALUES (?, ?, ?)";

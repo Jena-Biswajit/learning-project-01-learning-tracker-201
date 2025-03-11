@@ -6,7 +6,7 @@ public class CRUDExample {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/mydatabase";
         String user = "root";
-        String password = "subhasmita";
+        String password = "Bbiswajit@408";
 
            try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -20,21 +20,21 @@ public class CRUDExample {
             Statement stmt = conn.createStatement();
 
             // CREATE (Insert)
-            String insertQuery = "INSERT INTO users (id, name, email) VALUES (1, 'Biswajit Jena', 'biswajitjena529.com')";
+            String insertQuery = "INSERT INTO students (name,age,marks) VALUES ( 'Biswajit Jena',25, 33)";
             stmt.executeUpdate(insertQuery);
 
             // READ (Select)
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM students");
             while (rs.next()) {
-                System.out.println("User: " + rs.getString("name"));
+                System.out.println("students: " + rs.getString("name"));
             }
 
             // UPDATE
-            String updateQuery = "UPDATE users SET name='Biswajit Jena' WHERE id=1";
+            String updateQuery = "UPDATE students SET name='Biswajit Jena' WHERE id=1";
             stmt.executeUpdate(updateQuery);
 
             // DELETE
-            String deleteQuery = "DELETE FROM users WHERE id=1";
+            String deleteQuery = "DELETE FROM students WHERE id=1";
             stmt.executeUpdate(deleteQuery);
 
             // Close resources
