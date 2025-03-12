@@ -30,6 +30,7 @@ public class UpdateDataInTable {
             } else {
                 System.out.println("data not updated ");
             }
+            stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

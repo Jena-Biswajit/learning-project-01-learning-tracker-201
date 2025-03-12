@@ -33,6 +33,7 @@ public class UpdateUsingPreparedStatement {
             } else {
                 System.out.println("data not updated ");
             }
+            prepareStatement.close();;
         } catch (Exception e) {
             e.printStackTrace();
         }
