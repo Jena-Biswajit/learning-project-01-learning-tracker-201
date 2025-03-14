@@ -4,30 +4,29 @@ import java.util.Arrays;
 
 public class MaximizeMinimumDifference {
     public static void main(String[] args) {
-        int []array = {3,4,5,6,7};
-        int len = array.length;
+        int[] array = {3, 4, 5, 6, 7};
         int k = 2;
-        int []temp = new int[len];
+        int len = array.length;
 
-        for (int i =0; i<array.length;i++){
-            if(array[i]> k){
-                temp[i] = array[i] - k ;
+        int smallest = Integer.MAX_VALUE; // Initialize to a large value
+        int largest = Integer.MIN_VALUE;  // Initialize to a small value
 
+        // Modify the array and find min/max in a single loop
+        for (int i = 0; i < len; i++) {
+            array[i] = (array[i] > k) ? array[i] - k : array[i] + k;
+
+            // Update smallest and largest values dynamically
+            if (array[i] < smallest) {
+                smallest = array[i];
             }
-            else{
-                temp[i] = array[i]+k;
+            if (array[i] > largest) {
+                largest = array[i];
             }
         }
-        System.out.println(Arrays.toString(temp));
-        int largest = temp.length, smallest=temp[0];
 
-        Arrays.sort(temp);
-        System.out.println("largest element is :"+ largest);
-        System.out.println("smallest element is :"+ temp[0]);
-
-        System.out.println("maximum minimum diff bet height is :"+ (largest-smallest));
+        System.out.println("Modified array: " + java.util.Arrays.toString(array));
+        System.out.println("Largest element: " + largest);
+        System.out.println("Smallest element: " + smallest);
+        System.out.println("Minimum Maximum Difference: " + (largest - smallest));
     }
 }
-
-
-
