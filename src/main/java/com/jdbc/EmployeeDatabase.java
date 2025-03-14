@@ -78,6 +78,7 @@ public class EmployeeDatabase {
                     System.out.println("No employee found with ID: " + id);
                 }
             }
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

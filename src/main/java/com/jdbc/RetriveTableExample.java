@@ -35,6 +35,7 @@ public class RetriveTableExample {
                 System.out.println("age :"+age);
                 System.out.println("marks :"+marks);
             }
+            resultSet.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

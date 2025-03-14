@@ -42,6 +42,11 @@ JDBC consists of the following core components:
 2. **Add the JDBC driver to the project’s classpath.**
 3. **Write a Java program** to connect to the database.
 
+### command to connect the db to localhost 
+```
+mysql -u user -p
+```
+
 ### 5. First JDBC Program (Boilerplate Code)
 ```java
 import java.sql.*;
