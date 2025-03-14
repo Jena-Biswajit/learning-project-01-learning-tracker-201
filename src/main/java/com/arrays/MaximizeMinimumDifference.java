@@ -19,17 +19,15 @@ public class MaximizeMinimumDifference {
             }
         }
         System.out.println(Arrays.toString(temp));
-        int largest = 0,smallest=0;
-        for(int i =0 ; i< array.length;i++){
-            // find the smallest and largest
-            if(temp[i]>temp[i+1]){
-                 largest = array[i];
-            } else if (temp[i]<temp[i+1]) {
-                 smallest  = array[i];
-            }
-        }
-        System.out.println(largest);
-        System.out.println(smallest);
-    }
+        int largest = temp.length, smallest=temp[0];
 
+        Arrays.sort(temp);
+        System.out.println("largest element is :"+ largest);
+        System.out.println("smallest element is :"+ temp[0]);
+
+        System.out.println("maximum minimum diff bet height is :"+ (largest-smallest));
+    }
 }
+
+
+
