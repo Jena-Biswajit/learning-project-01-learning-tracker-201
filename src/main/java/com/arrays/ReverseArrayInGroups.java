@@ -10,7 +10,7 @@ public class ReverseArrayInGroups {
         for(int i =0;i< arr.length;i++){
             System.out.println("original array :"+arr[i]);
         }
-        ReverseInGroups ob1 = new ReverseInGroups();
+        OneDArrayIteration.ReverseInGroups ob1 = new OneDArrayIteration.ReverseInGroups();
         ob1.reverseElement(arr, groupSize);
         for(int i =0;i< arr.length;i++){
             System.out.println("reversed array in groups :"+arr[i]);
