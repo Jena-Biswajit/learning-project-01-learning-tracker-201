@@ -10,26 +10,28 @@ public class BusTravelingAgency {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("1. Register\n2. Login\n3. View Buses\n4. Book Ticket");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.println("1. Register\n2. Login\n3. View Buses\n4. Book Ticket");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
 
-        switch (choice) {
-            case 1:
-                registerUser(scanner);
-                break;
-            case 2:
-                loginUser(scanner);
-                break;
-            case 3:
-                viewBuses();
-                break;
-            case 4:
-                bookTicket(scanner);
-                break;
-            default:
-                System.out.println("Invalid choice");
+            switch (choice) {
+                case 1:
+                    registerUser(scanner);
+                    break;
+                case 2:
+                    loginUser(scanner);
+                    break;
+                case 3:
+                    viewBuses();
+                    break;
+                case 4:
+                    bookTicket(scanner);
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
         }
     }
 
