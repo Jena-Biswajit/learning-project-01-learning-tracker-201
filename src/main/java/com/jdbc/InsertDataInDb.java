@@ -30,6 +30,7 @@ public class InsertDataInDb {
             } else {
                 System.out.println("data not inserted ");
             }
+            stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

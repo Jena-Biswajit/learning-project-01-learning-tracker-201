@@ -35,6 +35,7 @@ public class InsertUsingPreparedStatement {
             } else {
                 System.out.println("data not inserted ");
             }
+            prepareStatement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

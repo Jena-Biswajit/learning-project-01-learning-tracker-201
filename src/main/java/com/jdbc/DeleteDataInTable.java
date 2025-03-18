@@ -30,7 +30,7 @@ public class DeleteDataInTable {
             } else {
                 System.out.println("data not deleted ");
             }
-            
+            stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
