@@ -8,20 +8,20 @@ public class TwoSum {
 
             int len = nums.length;
 
-            for(int i =0 ; i<len ; i++){
-                for (int j = i+1 ; j<len;j++){
-                    if(nums[i]+nums[j]==target){
-                        return new int[]{i,j};
+            for (int i = 0; i < len; i++) {
+                for (int j = i + 1; j < len; j++) {
+                    if (nums[i] + nums[j] == target) {
+                        return new int[] { i, j };
                     }
                 }
 
             }
-            return new int[]{};
+            return new int[] {};
         }
     }
 
     public static void main(String[] args) {
-        int[] array = {2, 11, 7, 9};
+        int[] array = { 2, 11, 7, 9 };
         int target = 9;
 
         Solution ob1 = new Solution();
