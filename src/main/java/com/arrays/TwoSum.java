@@ -8,14 +8,12 @@ public class TwoSum {
            int start =0  , end =len ;
            
     
-           for( start =0 ; start<len-1 ;start++  ){
-                for(end = len ; end>0 ;end--  ){
-    
+           for( ; start<end;  ){
                     if((nums[start] + nums[end]) == target){
                         break;
                     }
                 }   
-           }
+
            return new int[]{start, end};
         }
     }
