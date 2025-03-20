@@ -36,10 +36,7 @@ public class RetriveUsingPreparedStatement {
                 System.out.println("mark not found ");
             }
             prepareStatement.close();
-<<<<<<< HEAD
             resultSet.close();
-=======
->>>>>>> 65320728c4e32e3d90f5c557360cbae703bd581f
         } catch (Exception e) {
             e.printStackTrace();
         }
