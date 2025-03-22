@@ -9,9 +9,13 @@ class Solution {
             if (nums[i] == target) {
                 return i;
             } else {
-                if (nums[i] > target) {
-                    if (nums[i - 1] < target) {
-                        return i;
+                if (i == 0 && nums[i] > target) {
+                    return i;
+                } else if (nums[i] > target) {
+                    if (i > 0) {
+                        if (nums[i - 1] < target) {
+                            return i;
+                        }
                     }
                 } else {
                     if (nums[len - 1] < target) {
@@ -19,7 +23,6 @@ class Solution {
                     }
                 }
             }
-
         }
         return 0;
     }
