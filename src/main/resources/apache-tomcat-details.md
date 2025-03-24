@@ -3,7 +3,38 @@
 - Apache Tomcat is an **open-source web server** and ***servlet container** used to deploy and run Java-based web applications.
 - Widely used for running Java Servlets, JSP (JavaServer Pages), and Java Web Applications.
 
-**Step by step of using Tomcat**
+### Step by step of using Tomcat
+
+***Start Tomcat Using .bat File in bin Folder***
+  - Navigate to the bin directory inside the extracted Tomcat folder.
+  - Run the following command in the terminal (Command Prompt):
+
+### List of Tomcat Folders
+  - After extracting Tomcat, you will see the following folders:
+
+    **bin** – Contains startup and shutdown scripts (startup.bat, shutdown.bat).
+
+    **conf** – Configuration files, including server.xml, web.xml.
+
+    **lib** – Contains required libraries (JAR files).
+
+    **logs** – Stores log files.
+
+    **webapps** – The folder where deployed web applications are stored.
+
+    **temp** – Temporary files used by Tomcat.
+
+    **work** – Used for compiled JSP files.
+
+### Check Tomcat Logs
+  - Logs are stored in the logs directory.
+  - To view logs, check the catalina.out
+
+### Access Tomcat URL
+  - By default, Tomcat runs on port 8080.
+```
+http://localhost:8080
+```
 
 ### Why Do We Need Tomcat?
   1. To Run Java Web Applications 
