@@ -1,4 +1,4 @@
-package com.tomcat;
+package com.example.tomcat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
@@ -35,7 +35,7 @@ public class EmployeeJsonExample {
 
         try {
             // Convert Employee object to JSON and write to a file
-            objectMapper.writeValue(new File("employee.json"), employee);
+                                                                                                                     objectMapper.writeValue(new File("employee.json"), employee);
             System.out.println("Employee JSON file created successfully!");
         } catch (IOException e) {
             e.printStackTrace();

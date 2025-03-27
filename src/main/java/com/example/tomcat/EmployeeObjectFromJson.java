@@ -1,4 +1,4 @@
-package com.tomcat;
+package com.example.tomcat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
