@@ -2,7 +2,7 @@ package com.example;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.arrays.ReverseIntArray;
+import com.example.arrays.ReverseIntArray;
 import org.junit.jupiter.api.Test;
 
 class ReverseIntArrayTest {

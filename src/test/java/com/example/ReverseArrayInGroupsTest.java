@@ -1,7 +1,7 @@
 package com.example;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.arrays.OneDArrayIteration;
+import com.example.arrays.OneDArrayIteration;
 import org.junit.jupiter.api.Test;
 public class ReverseArrayInGroupsTest {
     @Test

@@ -2,8 +2,7 @@ package com.example;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import com.arrays.ReverseIntArray;
-import com.arrays.SortArrayExample;
+import com.example.arrays.SortArrayExample;
 import org.junit.jupiter.api.Test;
 
 public class SortArrayTest {
