@@ -197,7 +197,7 @@ public class ServletDemoJson extends HttpServlet {
 
 **Expected O/p** :
 ```
-![img.png](img.png)
+![db_con-log.png](..%2F..%2F..%2F..%2F..%2FDesktop%2Fall_apps%2Fscreenshots%2Fdb_con-log.png)
 ```
 
 ### Build and Deploy to Tomcat
@@ -278,7 +278,7 @@ try {
 ```
 **Expected O/P**
 ```shell
-![img_1.png](img_1.png)
+![Employee_tbl-mySql.png](..%2F..%2F..%2F..%2F..%2FDesktop%2Fall_apps%2Fscreenshots%2FEmployee_tbl-mySql.png)
 ```
 
 ### Test API Using cURL
