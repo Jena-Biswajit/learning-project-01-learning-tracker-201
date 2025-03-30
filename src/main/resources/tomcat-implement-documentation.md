@@ -294,11 +294,6 @@ try {
 tail -f /path/to/tomcat/logs/catalina.out
 ```
 
-**Expected O/P**
-
-![Employee_tbl-mySql.jpg](..%2F..%2F..%2F..%2FEmployee_tbl-mySql.jpg)
-
-![db_con-log.jpg](..%2F..%2F..%2F..%2Fdb_con-log.jpg)
 ### Test API Using cURL
 - Test using Postman or curl 
 
