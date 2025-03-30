@@ -1,178 +1,298 @@
-### Step-by-Step Process of Tomcat implementation
+### Step-by-Step detailed explanation of Tomcat server Implementation
 
-### Build and Deploy a Java Servlet Application on Tomcat
+**Before starting, make sure you have installed:**
+- Java JDK (Ensure Java 8+ is installed) . In my case i'm using java-21
+- Apache Tomcat (Version 9 or above) . In my case i'm using Tomcat-10
+- Maven (for dependency management)
 
-### Step 1: Build the WAR File
-A **WAR (Web Application Archive) file** is a package that contains your **Java web application** and is used for deployment in **Tomcat**.
-
-### 1.1 Navigate to Your Project Folder
-Open a terminal or command prompt and go to your Maven project directory:
-```sh
-cd /path/to/your/ServletDemo
+**Command to verify Java Version**
+```
+java --version
 ```
 
-### 1.2 Clean and Build the Project
-Run the following Maven command to clean and build the project:
-```sh
+**Check Maven version:**
+```
+mvn -version
+```
+
+**Check the Tomcat version**
+- For mac
+```
+$ ./catalina.sh version
+```
+- For windows 
+```
+catalina.bat version
+```
+
+### Set Up Maven Project for Servlet
+
+**Create a new Maven project:**
+- If you are using intelliJ idea : Then follow these steps .
+  - Open IDE : 
+     step-1: open new-project
+     step-2: Go to generator and select Maven Archetype
+     step-3: In Maven Archetype : 
+             select Name : name of project
+             Location : workspace to create your project 
+             JDK : Chose as per you downloaded version
+             Archetype : org.apache.maven.archetypes:maven-archetype-webapp 
+
+- **OR** : Use command 
+```
+mvn archetype:generate -DgroupId=com.example -DartifactId=ServletDemoJson -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+```
+
+### Configure pom.xml for Dependencies
+
+```
+    <!-- Servlet API -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Logback (SLF4J API + Logback implementation) -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.4.11</version>
+    </dependency>
+
+    <!--  JSON Dependency  -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.16.0</version>
+    </dependency>
+
+  </dependencies>
+  <build>
+    <finalName>ExampleMavenTomcat</finalName>
+
+    <plugins>
+      <!-- Maven Compiler Plugin: Set Java version -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>  <!-- Ensure you're using at least 3.8.1 -->
+        <configuration>
+          <release>21</release>  <!-- Ensures compatibility with Java 21 -->
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+```
+
+###  Implement the ServletDemoJson Class
+- Create a ServletDemoJson file inside src/main/java/com/example/ServletDemoJson 
+
+```
+package com.example;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+@WebServlet("/employee")
+public class ServletDemoJson extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(ServletDemoJson.class);
+    private final ObjectMapper objectMapper = new ObjectMapper(); // Jackson ObjectMapper
+
+    // Database Credentials
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/Employee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static final String JDBC_USER = "root"; // Change username
+    private static final String JDBC_PASSWORD = "subhasmita"; // Change password
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        logger.info("Received POST request for Employee");
+
+        // Read JSON request body
+        StringBuilder jsonBuffer = new StringBuilder();
+        String line;
+        try (BufferedReader reader = request.getReader()) {
+            while ((line = reader.readLine()) != null) {
+                jsonBuffer.append(line);
+            }
+        }
+        String jsonInput = jsonBuffer.toString();
+        logger.info("Received JSON: {}", jsonInput);
+
+        // Convert JSON to Employee object
+        Employee employee = objectMapper.readValue(jsonInput, Employee.class);
+
+        // Insert Employee into database
+        boolean inserted = insertEmployeeIntoDatabase(employee);
+
+        if (inserted) {
+            // Modify salary (increase by 10%)
+            employee.setSalary(employee.getSalary() * 1.1);
+
+            // Convert Employee object back to JSON
+            String jsonResponse = objectMapper.writeValueAsString(employee);
+
+            // Set response headers and write JSON output
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonResponse);
+
+            logger.info("Updated Employee JSON sent: {}", jsonResponse);
+        } else {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert employee");
+        }
+    }
+
+    // Method to insert Employee into the database
+    private boolean insertEmployeeIntoDatabase(Employee employee) {
+        try {
+            // Ensure the driver is loaded
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish connection
+            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                 PreparedStatement statement = connection.prepareStatement(
+                         "INSERT INTO Employee (name, age, salary) VALUES (?, ?, ?)")) {
+
+                logger.info("Database connected successfully!");
+
+                statement.setString(1, employee.getName());
+                statement.setInt(2, employee.getAge());
+                statement.setDouble(3, employee.getSalary());
+
+                int rowsInserted = statement.executeUpdate();
+                return rowsInserted > 0;
+            }
+        } catch (ClassNotFoundException e) {
+            logger.error("MySQL JDBC Driver not found", e);
+        } catch (SQLException e) {
+            logger.error("Database error: {}", e.getMessage());
+        }
+        return false;
+    }
+}
+```
+
+**Expected O/p** :
+```
+![img.png](img.png)
+```
+
+### Build and Deploy to Tomcat
+**Build the WAR File**
+```
 mvn clean package
 ```
-- The `clean` command removes any previously compiled files.
-- The `package` command compiles the project and generates a WAR file in the `target/` directory.
 
-### 1.3 Locate the WAR File
-After the build process completes, the `ServletDemo.war` file will be generated inside:
-```
-/path/to/your/ServletDemo/target/ServletDemo.war
-```
+**Deploy to Tomcat**
 
----
-
-### Step 2: Deploy the WAR File to Tomcat
-
-### 2.1 Locate Tomcat’s Webapps Directory
-Find the **webapps/** folder inside your Tomcat installation.  
-For example, if you installed Tomcat in `/opt/tomcat`, the webapps folder will be:
-```sh
-/opt/tomcat/webapps/
+- Copy the WAR file to Tomcat’s webapps/ directory:
 ```
-On Windows, it may be:
-```
-C:\apache-tomcat-9.0\webapps\
+cp target/ExampleMavenTomcat.war /path/to/tomcat/webapps/
 ```
 
-### 2.2 Copy the WAR File to the Webapps Directory
-Run the following command to copy the generated WAR file to Tomcat’s `webapps` directory:
+**Start Tomcat:**
+- Open bin folder of /path/to/tomcat
+- cd /path/to/tomcat/bin
+- ./startup.sh  # (Linux/macOS)
+- ./catalina.sh start ((Linux/macOS))
 
-**On Linux/macOS:**
-```sh
-cp target/ServletDemo.war /path/to/tomcat/webapps/
+**Stop Tomcat:**
+- Open bin folder of /path/to/tomcat
+- cd /path/to/tomcat/bin
+- ./shutdown.sh
+- ./catalina.sh stop
+
+### View Tomcat Logs
+- If the deployment fails, check Tomcat’s logs for error messages.
 ```
-
-**On Windows (Command Prompt):**
-```sh
-copy target\ServletDemo.war C:\apache-tomcat-9.0\webapps\
-```
-
----
-
-### Step 3: Start Tomcat Server
-Once the WAR file is in the `webapps/` directory, start the Tomcat server.
-
-### 3.1 Start Tomcat (Linux/macOS)
-Go to the Tomcat `bin/` directory and run:
-```sh
-cd /path/to/tomcat/bin
-./startup.sh
-```
-
-### 3.2 Start Tomcat (Windows)
-If you're using Windows, navigate to the `bin/` folder in the Tomcat directory and run:
-```sh
-cd C:\apache-tomcat-9.0\bin
-startup.bat
-```
-
-### 3.1 Stop Tomcat (Linux/macOS)
-Go to the Tomcat `bin/` directory and run:
-```sh
-cd /path/to/tomcat/bin
-./shutdown.sh
-```
-
-### Step 4: Verify Deployment
-After starting Tomcat, you can check whether the servlet is deployed.
-
-### 4.1 Check Running Applications
-- Open a web browser and go to:
-  ```
-  http://localhost:8080/manager
-  ```
-- If prompted, enter the Tomcat Manager username and password (configured in `tomcat-users.xml`).
-- Look for `ServletDemo` in the list of deployed applications.
-
-### 4.2 Directly Access the Servlet
-Try accessing your servlet using a browser or a tool like **Postman**.
-
-For example, if your servlet is mapped to `/employee`, open:
-```
-http://localhost:8080/ServletDemo/employee
-```
-
-If you're using **cURL**, test the API:
-```sh
-curl -X GET http://localhost:8080/ServletDemo/employee
-```
-
----
-
-### Step 5: Check Logs for Errors
-If the deployment fails, check Tomcat’s logs for error messages.
-
-### 5.1 View Tomcat Logs
-Run:
-```sh
 tail -f /path/to/tomcat/logs/catalina.out
 ```
-On Windows, open:
+
+### Command to check the number of process running in same port :
 ```
-C:\apache-tomcat-9.0\logs\catalina.out
-```
-
----
-
-### Step 6: Restart Tomcat (If Needed)
-If your application doesn’t deploy correctly, try restarting Tomcat.
-
-**On Linux/macOS:**
-```sh
-cd /path/to/tomcat/bin
-./shutdown.sh
-./startup.sh
+lsof -i :8080
 ```
 
-**On Windows:**
-```sh
-cd C:\apache-tomcat-9.0\bin
-shutdown.bat
-startup.bat
+### Store Employee data in Database 
+### Check MySQL version:
+```shell
+mysql --version
+```
+- If returns nothing then download and setup required db .
+
+**Verify Database Connection*
+```shell
+mysql -u root -p
+```
+- Then, verify the table structure:
+```shell
+SHOW TABLES;
+DESC Employee;
+```
+**Example**
+```shell
+private boolean insertEmployeeIntoDatabase(Employee employee) {
+try {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+         PreparedStatement statement = connection.prepareStatement(
+                 "INSERT INTO Employee (name, age, salary) VALUES (?, ?, ?)")) {
+    
+        logger.info("Database connected successfully!");
+    
+        statement.setString(1, employee.getName());
+        statement.setInt(2, employee.getAge());
+        statement.setDouble(3, employee.getSalary());
+    
+        int rowsInserted = statement.executeUpdate();
+        return rowsInserted > 0;
+    }
+    } catch (ClassNotFoundException e) {
+    logger.error("MySQL JDBC Driver not found", e);
+    } catch (SQLException e) {
+    logger.error("Database error: {}", e.getMessage());
+}
+```
+**Expected O/P**
+```shell
+![img_1.png](img_1.png)
 ```
 
----
+### Test API Using cURL
+- Test using Postman or curl 
 
-### Bonus: Automate Deployment Using Maven Tomcat Plugin
-Instead of manually copying the WAR file, you can deploy directly using Maven.
+**By postman**
+- go to postman and check api using Post method .
 
-### 1. Add the Tomcat Plugin to `pom.xml`
-```xml
-<plugin>
-    <groupId>org.apache.tomcat.maven</groupId>
-    <artifactId>tomcat7-maven-plugin</artifactId>
-    <version>2.2</version>
-    <configuration>
-        <url>http://localhost:8080/manager/text</url>
-        <server>TomcatServer</server>
-        <path>/ServletDemo</path>
-    </configuration>
-</plugin>
+**By curl**
+```shell
+curl -X POST http://localhost:8080/ServletDemo/employee \
+     -H "Content-Type: application/json" \
+     -d '{"name": "John Doe", "age": 30, "salary": 50000}'
+
 ```
 
-### 2. Configure Tomcat Credentials
-Edit `~/.m2/settings.xml` (or create it) and add:
-```xml
-<servers>
-    <server>
-        <id>TomcatServer</id>
-        <username>admin</username>
-        <password>admin</password>
-    </server>
-</servers>
-```
-
-### 3. Deploy Using Maven
-Run:
-```sh
-mvn tomcat7:deploy
-```
-
----
 
