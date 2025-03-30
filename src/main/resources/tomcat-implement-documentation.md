@@ -29,16 +29,19 @@ catalina.bat version
 
 **Create a new Maven project:**
 - If you are using intelliJ idea : Then follow these steps .
-  - Open IDE : 
-     step-1: open new-project
-     step-2: Go to generator and select Maven Archetype
-     step-3: In Maven Archetype : 
-             select Name : name of project
-             Location : workspace to create your project 
-             JDK : Chose as per you downloaded version
-             Archetype : org.apache.maven.archetypes:maven-archetype-webapp 
+- Open IDE : 
+**step-1:** open new-project
 
-- **OR** : Use command 
+**step-2:** Go to generator and select Maven Archetype
+
+**step-3:** In Maven Archetype : 
+  - select Name : name of project
+  - Location : workspace to create your project 
+  - JDK : Chose as per you downloaded version
+  - Archetype : org.apache.maven.archetypes:maven-archetype-webapp 
+
+
+**OR** : Use command 
 ```
 mvn archetype:generate -DgroupId=com.example -DartifactId=ServletDemoJson -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
 ```
@@ -195,16 +198,24 @@ public class ServletDemoJson extends HttpServlet {
 }
 ```
 
-**Expected O/p** :
-```
-![db_con-log.png](..%2F..%2F..%2F..%2F..%2FDesktop%2Fall_apps%2Fscreenshots%2Fdb_con-log.png)
-```
-
 ### Build and Deploy to Tomcat
 **Build the WAR File**
 ```
 mvn clean package
 ```
+**Explanation** :
+- First, removes old compiled files (clean). Then, builds the project and creates a deployable package (package).
+- **clean Phase** : ```mvn clean```
+  - **Deletes the target/ directory,** which contains compiled files, previous builds, and temporary files.
+  - Ensures a fresh build by removing outdated or unnecessary artifacts.
+
+- **package Phase** : ```mvn package```
+  - Compiles the Java source code.
+  - Runs tests (if tests exist).
+  - Packages the compiled code and dependencies into a deployable file:
+  - WAR (.war) → For web applications (deployable in Tomcat).
+
+
 
 **Deploy to Tomcat**
 
@@ -221,15 +232,15 @@ cp target/ExampleMavenTomcat.war /path/to/tomcat/webapps/
 
 **Stop Tomcat:**
 - Open bin folder of /path/to/tomcat
-- cd /path/to/tomcat/bin
-- ./shutdown.sh
-- ./catalina.sh stop
 
-### View Tomcat Logs
-- If the deployment fails, check Tomcat’s logs for error messages.
+```shell
+- track to bin 
+
+cd /path/to/tomcat/bin
+./shutdown.sh    
+./catalina.sh stop
 ```
-tail -f /path/to/tomcat/logs/catalina.out
-```
+
 
 ### Command to check the number of process running in same port :
 ```
@@ -243,7 +254,7 @@ mysql --version
 ```
 - If returns nothing then download and setup required db .
 
-**Verify Database Connection*
+**Verify Database Connection**
 ```shell
 mysql -u root -p
 ```
@@ -276,10 +287,20 @@ try {
     logger.error("Database error: {}", e.getMessage());
 }
 ```
-**Expected O/P**
-```shell
-![Employee_tbl-mySql.png](..%2F..%2F..%2F..%2F..%2FDesktop%2Fall_apps%2Fscreenshots%2FEmployee_tbl-mySql.png)
+
+### View Tomcat Logs
+- If the deployment fails, check Tomcat’s logs for error messages.
 ```
+tail -f /path/to/tomcat/logs/catalina.out
+```
+
+**Expected O/P**
+
+![db_con-log.png](..%2F..%2F..%2F..%2F..%2FDesktop%2Fall_apps%2Fscreenshots%2Fdb_con-log.png)
+
+
+![Employee_tbl-mySql.png](..%2F..%2F..%2F..%2F..%2FDesktop%2Fall_apps%2Fscreenshots%2FEmployee_tbl-mySql.png)
+
 
 ### Test API Using cURL
 - Test using Postman or curl 
