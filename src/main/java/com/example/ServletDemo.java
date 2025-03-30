@@ -20,8 +20,8 @@ public class ServletDemo extends HttpServlet {
         logger.info("Processing GET request");
 
         response.setContentType("text/html");
-        response.getWriter().println("<h1>Hello, Munna!</h1>");
+        response.getWriter().println("<h1>Hello, Biswajit!</h1>");
 
-        logger.info("Response sent: Hello, World!");
+        logger.info("Response sent: Hello, Biswajit!");
     }
 }
