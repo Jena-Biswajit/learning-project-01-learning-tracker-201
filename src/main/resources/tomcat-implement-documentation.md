@@ -30,6 +30,7 @@ catalina.bat version
 **Create a new Maven project:**
 - If you are using intelliJ idea : Then follow these steps .
 - Open IDE : 
+
 **step-1:** open new-project
 
 **step-2:** Go to generator and select Maven Archetype
@@ -294,6 +295,17 @@ try {
 tail -f /path/to/tomcat/logs/catalina.out
 ```
 
+**Expected O/P**
+
+---
+**Log**
+![Database Connection Log](/Users/subhasmitabehera/Downloads/db_con-log.jpg)
+
+**Database Table**
+![Database Connection Log](/Users/subhasmitabehera/Downloads/Employee_tbl-mySql.jpg)
+
+---
+
 ### Test API Using cURL
 - Test using Postman or curl 
 
@@ -307,5 +319,6 @@ curl -X POST http://localhost:8080/ServletDemo/employee \
      -d '{"name": "John Doe", "age": 30, "salary": 50000}'
 
 ```
+
 
 
