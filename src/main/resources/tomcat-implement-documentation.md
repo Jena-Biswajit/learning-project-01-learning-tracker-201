@@ -295,17 +295,6 @@ try {
 tail -f /path/to/tomcat/logs/catalina.out
 ```
 
-**Expected O/P**
-
----
-**Log**
-![Database Connection Log](/Users/subhasmitabehera/Downloads/db_con-log.jpg)
-
-**Database Table**
-![Database Connection Log](/Users/subhasmitabehera/Downloads/Employee_tbl-mySql.jpg)
-
----
-
 ### Test API Using cURL
 - Test using Postman or curl 
 
