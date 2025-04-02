@@ -9,18 +9,18 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.*;
 
-public class ReaderExample{
-    
+public class ReaderExample {
+
     public static void main(String[] args) {
-        
+
         // FileReaderExample
 
-        try{
+        try {
             FileReader fr = new FileReader("createFile.txt");
 
             int ch;
-            while((ch = fr.read())!= -1){
-                System.out.println((char)ch);
+            while ((ch = fr.read()) != -1) {
+                System.out.println((char) ch);
             }
 
             fr.close();
@@ -28,34 +28,34 @@ public class ReaderExample{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         // BufferedReaderExample
-       try {
+        try {
 
-           BufferedReader br =  new BufferedReader(new FileReader("createFile.txt"));
-           String line;
-           
-           while ((line = br.readLine()) != null) {
-              System.out.println(line);
-           }
+            BufferedReader br = new BufferedReader(new FileReader("createFile.txt"));
+            String line;
 
-           br.close();
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            br.close();
 
 
         } catch (Exception e) {
             // TODO: handle exception
         }
-        
+
         //InputStreamReaderExample
         try {
             FileInputStream fis = new FileInputStream("createFile.txt");
             InputStreamReader isr = new InputStreamReader(fis);
             int ch;
-            
+
             while ((ch = isr.read()) != -1) {  // Reads character by character
                 System.out.print((char) ch);
             }
-            
+
             isr.close();  // Always close the reader
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,33 +63,33 @@ public class ReaderExample{
 
         // CharArrayReaderExample
 
-        char[] charArray = {'H', 'e', 'l', 'l', 'o', ',', ' ', 'B', 'i', 's', 'w','a','!'};
-        
+        char[] charArray = {'H', 'e', 'l', 'l', 'o', ',', ' ', 'B', 'i', 's', 'w', 'a', '!'};
+
         try {
             CharArrayReader reader = new CharArrayReader(charArray);
             int ch;
-            
+
             while ((ch = reader.read()) != -1) {  // Reads character by character
                 System.out.print((char) ch);
             }
-            
+
             reader.close();  // Always close the reader
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // StringReaderExample
-        
+
         String data = "\nHello, Java!";
-        
+
         try {
             StringReader reader = new StringReader(data);
             int ch;
-            
+
             while ((ch = reader.read()) != -1) {  // Reads character by character
                 System.out.print((char) ch);
             }
-            
+
             reader.close();  // Always close the reader
         } catch (IOException e) {
             e.printStackTrace();
