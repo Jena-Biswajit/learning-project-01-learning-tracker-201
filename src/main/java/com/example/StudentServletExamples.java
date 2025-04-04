@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 @WebServlet("/student")
 public class StudentServletExamples extends HttpServlet {
@@ -23,7 +20,7 @@ public class StudentServletExamples extends HttpServlet {
     private final ObjectMapper objectMapper = new ObjectMapper(); // Jackson ObjectMapper
 
     // Database Credentials
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/Employee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/student?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String JDBC_USER = "root"; // Change username
     private static final String JDBC_PASSWORD = "subhasmita"; // Change password
 
@@ -43,15 +40,14 @@ public class StudentServletExamples extends HttpServlet {
         String jsonInput = jsonBuffer.toString();
         logger.info("Received JSON: {}", jsonInput);
 
-        // Convert JSON to Employee object
+        // Convert JSON to Student object
         Student student = objectMapper.readValue(jsonInput, Student.class);
 
-        // Insert Employee into database
+        // Insert Student into database
         boolean inserted = insertStudentIntoDatabase(student);
 
         if (inserted) {
-
-            // Convert Employee object back to JSON
+            // Convert Student object back to JSON
             String jsonResponse = objectMapper.writeValueAsString(student);
 
             // Set response headers and write JSON output
@@ -65,30 +61,31 @@ public class StudentServletExamples extends HttpServlet {
         }
     }
 
-    // Method to insert Employee into the database
+    // Method to insert Student into the database
     private boolean insertStudentIntoDatabase(Student student) {
-        try {
-            // Ensure the driver is loaded
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(
+                     "INSERT INTO student (name, age) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
-            // Establish connection
-            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                 PreparedStatement statement = connection.prepareStatement(
-                         "INSERT INTO student (id, name, age) VALUES (?, ?, ?)")) {
+            logger.info("Database connected successfully!");
 
-                logger.info("Database connected successfully!");
+            statement.setString(1, student.getName());
+            statement.setInt(2, student.getAge());
 
-                statement.setInt(1, student.getId());
-                statement.setString(3, student.getName());
-                statement.setInt(2, student.getAge());
+            int rowsInserted = statement.executeUpdate();
 
-                int rowsInserted = statement.executeUpdate();
-                return rowsInserted > 0;
+            // Retrieve generated ID if needed
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        student.setId(generatedKeys.getInt(1)); // Assuming Student has a setId() method
+                    }
+                }
             }
-        } catch (ClassNotFoundException e) {
-            logger.error("MySQL JDBC Driver not found", e);
+
+            return rowsInserted > 0;
         } catch (SQLException e) {
-            logger.error("Database error: {}", e.getMessage());
+            logger.error("Database error: {}", e.getMessage(), e);
         }
         return false;
     }
