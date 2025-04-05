@@ -14,12 +14,13 @@ class Employee {
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println(obj);
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Employee1 employee = (Employee1) obj;
-        return id == employee.id && Objects.equals(name, employee.name);
+//        System.out.println(obj);
+//        if (this == obj) return true;
+//        if (obj == null || getClass() != obj.getClass()) return false;
+//        Employee1 employee = (Employee1) obj;
+//        return id == employee.id && Objects.equals(name, employee.name);
 //        return false ;
+          return true ;
     }
     // if same hashcode is produce then it will go to same bucket index by using hashing algo .
     // while adding p1 if  no element found at bucket index it places the object p1.
@@ -29,8 +30,8 @@ class Employee {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
-//        return 1;
+//        return Objects.hash(id, name);
+        return 1;
     }
 
     @Override
