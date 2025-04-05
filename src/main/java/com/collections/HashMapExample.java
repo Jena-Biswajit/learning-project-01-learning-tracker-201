@@ -11,7 +11,7 @@ public class HashMapExample {
         // 1. put(K key, V value): Adds key-value pairs
         hashMap.put(1, "Apple");
         hashMap.put(2, "Banana");
-        hashMap.put(3, "Cherry");
+        hashMap.put(1, "Cherry");
         System.out.println("HashMap after adding elements: " + hashMap);
 
         // 2. putIfAbsent(K key, V value): Adds a key-value pair only if the key is not present
