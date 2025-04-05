@@ -44,7 +44,12 @@ public class StudentServletExamples extends HttpServlet {
         Student student = objectMapper.readValue(jsonInput, Student.class);
 
         // Insert Student into database
-        boolean inserted = insertStudentIntoDatabase(student);
+        boolean inserted = false;
+        try {
+            inserted = insertStudentIntoDatabase(student);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         if (inserted) {
             // Convert Student object back to JSON
@@ -62,31 +67,32 @@ public class StudentServletExamples extends HttpServlet {
     }
 
     // Method to insert Student into the database
-    private boolean insertStudentIntoDatabase(Student student) {
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(
-                     "INSERT INTO student (name, age) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+    private boolean insertStudentIntoDatabase(Student student) throws ClassNotFoundException {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                 PreparedStatement statement = connection.prepareStatement(
+                         "INSERT INTO student (name, age) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
-            logger.info("Database connected successfully!");
+                logger.info("Database connected successfully!");
 
-            statement.setString(1, student.getName());
-            statement.setInt(2, student.getAge());
+                statement.setString(1, student.getName());
+                statement.setInt(2, student.getAge());
 
-            int rowsInserted = statement.executeUpdate();
+                int rowsInserted = statement.executeUpdate();
 
-            // Retrieve generated ID if needed
-            if (rowsInserted > 0) {
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        student.setId(generatedKeys.getInt(1)); // Assuming Student has a setId() method
+                // Retrieve generated ID if needed
+                if (rowsInserted > 0) {
+                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            student.setId(generatedKeys.getInt(1)); // Assuming Student has a setId() method
+                        }
                     }
                 }
-            }
 
-            return rowsInserted > 0;
-        } catch (SQLException e) {
-            logger.error("Database error: {}", e.getMessage(), e);
-        }
-        return false;
+                return rowsInserted > 0;
+            } catch (SQLException e) {
+                logger.error("Database error: {}", e.getMessage(), e);
+            }
+            return false;
     }
 }
