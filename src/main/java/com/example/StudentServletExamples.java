@@ -1,6 +1,10 @@
 package com.example;
 
-
+import java.io.*;
+import java.sql.*;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.util.Enumeration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,11 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.sql.*;
-
 
 @WebServlet("/student")
 public class StudentServletExamples extends HttpServlet {
@@ -29,6 +28,23 @@ public class StudentServletExamples extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         logger.info("Received POST request for Students");
+
+
+        // Log Request Headers
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String name = headerNames.nextElement();
+            String value = request.getHeader(name);
+            System.out.println("Request Header: " + name + " = " + value);
+        }
+
+        // Add a custom response header
+        response.setHeader("X-Powered-By", "ServletHeaderExample");
+        response.setContentType("application/json");
+
+        PrintWriter out = response.getWriter();
+        out.print("{\"message\":\"Student created!\"}");
+        out.flush();
 
         // Read JSON request body
         StringBuilder jsonBuffer = new StringBuilder();
@@ -69,31 +85,31 @@ public class StudentServletExamples extends HttpServlet {
 
     // Method to insert Student into the database
     private boolean insertStudentIntoDatabase(Student student) throws ClassNotFoundException {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                 PreparedStatement statement = connection.prepareStatement(
-                         "INSERT INTO student (name, age) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(
+                     "INSERT INTO student (name, age) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
-                logger.info("Database connected successfully!");
+            logger.info("Database connected successfully!");
 
-                statement.setString(1, student.getName());
-                statement.setInt(2, student.getAge());
+            statement.setString(1, student.getName());
+            statement.setInt(2, student.getAge());
 
-                int rowsInserted = statement.executeUpdate();
+            int rowsInserted = statement.executeUpdate();
 
-                // Retrieve generated ID if needed
-                if (rowsInserted > 0) {
-                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                        if (generatedKeys.next()) {
-                            student.setId(generatedKeys.getInt(1)); // Assuming Student has a setId() method
-                        }
+            // Retrieve generated ID if needed
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        student.setId(generatedKeys.getInt(1)); // Assuming Student has a setId() method
                     }
                 }
-
-                return rowsInserted > 0;
-            } catch (SQLException e) {
-                logger.error("Database error: {}", e.getMessage(), e);
             }
-            return false;
+
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            logger.error("Database error: {}", e.getMessage(), e);
+        }
+        return false;
     }
 }
