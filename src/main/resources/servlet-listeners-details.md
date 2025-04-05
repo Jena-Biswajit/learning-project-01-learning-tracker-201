@@ -1,4 +1,4 @@
-### Servlet Listener Feature in Java Web Applications
+### Servlet Listener 
 
 ### What is a Listener?
 
