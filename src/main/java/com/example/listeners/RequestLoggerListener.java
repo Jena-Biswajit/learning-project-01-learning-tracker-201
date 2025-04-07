@@ -6,14 +6,18 @@ import jakarta.servlet.annotation.WebListener;
 
 @WebListener
 public class RequestLoggerListener implements ServletRequestListener {
+
+    // This method is called when a request starts.
+    // It logs the client's IP address using getRemoteAddr().
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
-        System.out.println("➡️ Request Received from IP: " + sre.getServletRequest().getRemoteAddr());
+        System.out.println("➡️ [RequestLoggerListener]Request Received from IP: " + sre.getServletRequest().getRemoteAddr());
     }
 
+    // This method is called after the request is completed.
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
-        System.out.println("⬅️ Request Processing Finished");
+        System.out.println("⬅️ [RequestLoggerListener]Request Processing Finished");
     }
 }
 

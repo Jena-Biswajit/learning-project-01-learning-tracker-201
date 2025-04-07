@@ -27,7 +27,7 @@ public class StudentServletExamples extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        logger.info("Received POST request for Students");
+        logger.info("[StudentServletExamples]Received POST request for Students");
 
 
         // Log Request Headers
@@ -35,7 +35,7 @@ public class StudentServletExamples extends HttpServlet {
         while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
             String value = request.getHeader(name);
-            System.out.println("Request Header: " + name + " = " + value);
+            System.out.println("[StudentServletExamples]Request Header: " + name + " = " + value);
         }
 
         // Add a custom response header
@@ -77,7 +77,7 @@ public class StudentServletExamples extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(jsonResponse);
 
-            logger.info("Updated Student JSON sent: {}", jsonResponse);
+            logger.info("[StudentServletExamples]Updated Student JSON sent: {}", jsonResponse);
         } else {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert student");
         }
@@ -90,7 +90,7 @@ public class StudentServletExamples extends HttpServlet {
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO student (name, age) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
-            logger.info("Database connected successfully!");
+            logger.info("[StudentServletExamples]Database connected successfully!");
 
             statement.setString(1, student.getName());
             statement.setInt(2, student.getAge());
@@ -108,7 +108,7 @@ public class StudentServletExamples extends HttpServlet {
 
             return rowsInserted > 0;
         } catch (SQLException e) {
-            logger.error("Database error: {}", e.getMessage(), e);
+            logger.error("[StudentServletExamples] Database error: {}", e.getMessage(), e);
         }
         return false;
     }
