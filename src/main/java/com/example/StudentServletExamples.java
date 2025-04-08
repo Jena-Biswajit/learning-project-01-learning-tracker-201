@@ -79,8 +79,8 @@ public class StudentServletExamples extends HttpServlet {
                 logger.info("Database connected successfully!");
 
                 statement.setInt(1, student.getId());
-                statement.setString(3, student.getName());
-                statement.setInt(2, student.getAge());
+                statement.setString(2, student.getName());
+                statement.setInt(3, student.getAge());
 
                 int rowsInserted = statement.executeUpdate();
                 return rowsInserted > 0;
