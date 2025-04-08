@@ -37,26 +37,18 @@
   - This class should be called when a session is created . 
   - And this method returns , o/p : [SessionCounterListener]New Session Created. Active Sessions:
 
-**Example**
-
----
-
-
----
-
 
 - STEP 3:
   - Set Breakpoint at requestInitialized() of ServletRequestListener :
   - This method is called when a request starts.
   - It logs the client's IP address using getServletRequest().getRemoteAddr().
   - This method called to log or track where requests are coming from.
-  - This is triggered for every single request (POST). 
-  - 0/p
+  - This is triggered for every single request (POST).  
 
 **Example**
 
 ---
-
+![alt text](<ServletRequestListener log for completion of request.png>)
 
 ---
 
@@ -75,8 +67,7 @@
 **Example**
 
 ---
-
-
+![alt text](<ServletRequestListener . request received ip.png>)
 ---
 
 
@@ -90,6 +81,14 @@
   - Received JSON: {}.
   - [StudentServletExamples]Updated Student JSON sent: {}
   - insertStudentIntoDatabase : Database connected successfully
+
+
+
+**Example**
+
+---
+![alt text](<dopost method.png>)
+---
 
 
 - Step - 6 
