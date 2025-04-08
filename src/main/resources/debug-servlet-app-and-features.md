@@ -57,10 +57,8 @@
   - Set Breakpoints in: doFilter() of filter . The class implements Filter interface, which means:
     It can intercept and process HTTP requests/responses.
   - init() – Runs once when the filter is first created (during app startup).
-  - o/p :
   - doFilter() – Called before and after servlet execution.
   - This method Logs the incoming request’s IP address using request.getRemoteAddr() method .
-  - o/p :
   - Filters let you intercept requests/responses before reaching the servlet.
   - ```chain.doFilter(request, response);``` : Passes the request to the next filter or servlet.
 
