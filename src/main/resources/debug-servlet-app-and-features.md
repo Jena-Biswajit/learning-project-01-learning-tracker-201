@@ -25,7 +25,7 @@
 **Example**
 
 ---
- ![application-started .png](application-started%20.png)
+![alt text](<application started  and filter initialized.png>)
 
 ---
 
