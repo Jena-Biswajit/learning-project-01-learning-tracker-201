@@ -1,6 +1,10 @@
 package com.example;
 
-
+import java.io.*;
+import java.sql.*;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.util.Enumeration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,27 +14,37 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 @WebServlet("/student")
 public class StudentServletExamples extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(StudentServletExamples.class);
     private final ObjectMapper objectMapper = new ObjectMapper(); // Jackson ObjectMapper
 
     // Database Credentials
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/Employee?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/student?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String JDBC_USER = "root"; // Change username
     private static final String JDBC_PASSWORD = "subhasmita"; // Change password
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        logger.info("Received POST request for Students");
+        logger.info("[StudentServletExamples]Received POST request for Students");
+
+
+        // Log Request Headers
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String name = headerNames.nextElement();
+            String value = request.getHeader(name);
+            System.out.println("[StudentServletExamples]Request Header: " + name + " = " + value);
+        }
+
+        // Add a custom response header
+        response.setHeader("X-Powered-By", "ServletHeaderExample");
+        response.setContentType("application/json");
+
+        PrintWriter out = response.getWriter();
+        out.print("{\"message\":\"Student created!\"}");
+        out.flush();
 
         // Read JSON request body
         StringBuilder jsonBuffer = new StringBuilder();
@@ -43,15 +57,19 @@ public class StudentServletExamples extends HttpServlet {
         String jsonInput = jsonBuffer.toString();
         logger.info("Received JSON: {}", jsonInput);
 
-        // Convert JSON to Employee object
+        // Convert JSON to Student object
         Student student = objectMapper.readValue(jsonInput, Student.class);
 
-        // Insert Employee into database
-        boolean inserted = insertStudentIntoDatabase(student);
+        // Insert Student into database
+        boolean inserted = false;
+        try {
+            inserted = insertStudentIntoDatabase(student);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         if (inserted) {
-
-            // Convert Employee object back to JSON
+            // Convert Student object back to JSON
             String jsonResponse = objectMapper.writeValueAsString(student);
 
             // Set response headers and write JSON output
@@ -59,36 +77,39 @@ public class StudentServletExamples extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(jsonResponse);
 
-            logger.info("Updated Student JSON sent: {}", jsonResponse);
+            logger.info("[StudentServletExamples]Updated Student JSON sent: {}", jsonResponse);
         } else {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert student");
         }
     }
 
-    // Method to insert Employee into the database
-    private boolean insertStudentIntoDatabase(Student student) {
-        try {
-            // Ensure the driver is loaded
-            Class.forName("com.mysql.cj.jdbc.Driver");
+    // Method to insert Student into the database
+    private boolean insertStudentIntoDatabase(Student student) throws ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(
+                     "INSERT INTO student (name, age) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
-            // Establish connection
-            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                 PreparedStatement statement = connection.prepareStatement(
-                         "INSERT INTO student (id, name, age) VALUES (?, ?, ?)")) {
-
-                logger.info("Database connected successfully!");
+            logger.info("[StudentServletExamples]Database connected successfully!");
 
                 statement.setInt(1, student.getId());
-                statement.setString(2, student.getName());
-                statement.setInt(3, student.getAge());
+                statement.setString(3, student.getName());
+                statement.setInt(2, student.getAge());
 
-                int rowsInserted = statement.executeUpdate();
-                return rowsInserted > 0;
+            int rowsInserted = statement.executeUpdate();
+
+            // Retrieve generated ID if needed
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        student.setId(generatedKeys.getInt(1)); // Assuming Student has a setId() method
+                    }
+                }
             }
-        } catch (ClassNotFoundException e) {
-            logger.error("MySQL JDBC Driver not found", e);
+
+            return rowsInserted > 0;
         } catch (SQLException e) {
-            logger.error("Database error: {}", e.getMessage());
+            logger.error("[StudentServletExamples] Database error: {}", e.getMessage(), e);
         }
         return false;
     }
