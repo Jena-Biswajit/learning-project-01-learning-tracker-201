@@ -48,7 +48,7 @@
 **Example**
 
 ---
-![alt text](<ServletRequestListener log for completion of request.png>)
+![alt text](<ServletRequestListener . request received ip.png>)
 
 ---
 
@@ -67,7 +67,8 @@
 **Example**
 
 ---
-![alt text](<ServletRequestListener . request received ip.png>)
+![alt text](<request received at- filter .png>)
+
 ---
 
 
@@ -83,11 +84,13 @@
   - insertStudentIntoDatabase : Database connected successfully
 
 
-
 **Example**
 
 ---
 ![alt text](<dopost method.png>)
+
+![alt text](<database created successfully.png>)
+
 ---
 
 
@@ -95,10 +98,27 @@
   - Then again it came to filter interface after response sent back to client .
   - LoggingFilter : Response sent back to: {}",
 
+
+**Example**
+
+---
+![alt text](<ServletRequestListener log for completion of request.png>)
+
+---
+
+
 - step - 7
   - After the request process is complete . It goes to again requestDestroyed() of ServletRequestListener.
   - requestDestroyed : It called when request process from client is complete .
   - o/p : request processing finnished . 
+
+
+**Example**
+
+---
+![alt text](<ServletRequestListener log for completion of request.png>)
+
+---  
 
 step - 8 
  - Then in last when server tomcat stopped it goes to destroy() method of filter and contextDestroyed() of ServletContextListener
@@ -108,8 +128,18 @@ step - 8
 
 **Example**
 
+---
+![alt text](<filter log after shutdown tomcat server.png>)
+
+![alt text](<contextDestroyed (application-stoped ).png>)
+
+---  
+
+**Example**
+
 - follow these complete logs for more clarification
 
-```
+---
+![alt text](<complete log.png>)
 
-```
+---
