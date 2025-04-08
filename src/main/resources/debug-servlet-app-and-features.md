@@ -22,12 +22,28 @@
   - This method is triggered once when the application is deployed.
   - o/p : [AppStartupListener]Application started
 
+**Example**
+
+---
+ ![application-started .png](application-started%20.png)
+
+---
+
+
 - STEP 2: 
   - Set Breakpoint at sessionCreated() in HttpSessionListener .
   - Implements HttpSessionListener, so it can respond to session creation.
   - This is triggered when a user first interacts with your app (first request).
   - This class should be called when a session is created . 
   - And this method returns , o/p : [SessionCounterListener]New Session Created. Active Sessions:
+
+**Example**
+
+---
+
+
+---
+
 
 - STEP 3:
   - Set Breakpoint at requestInitialized() of ServletRequestListener :
@@ -36,6 +52,14 @@
   - This method called to log or track where requests are coming from.
   - This is triggered for every single request (POST). 
   - 0/p
+
+**Example**
+
+---
+
+
+---
+
 
 - Step 4:
   - Set Breakpoints in: doFilter() of filter . The class implements Filter interface, which means:
@@ -47,6 +71,14 @@
   - o/p :
   - Filters let you intercept requests/responses before reaching the servlet.
   - ```chain.doFilter(request, response);``` : Passes the request to the next filter or servlet.
+
+**Example**
+
+---
+
+
+---
+
 
 - Step -5
   - Before this step all the listener and filters are prints all initial logs.
