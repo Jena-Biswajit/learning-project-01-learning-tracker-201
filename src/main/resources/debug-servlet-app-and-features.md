@@ -100,7 +100,7 @@
 **Example**
 
 ---
-![alt text](<ServletRequestListener log for completion of request.png>)
+![alt text](<response after completion of post request from filter.png>)
 
 ---
 
