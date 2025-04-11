@@ -25,7 +25,7 @@
 **Example**
 
 ---
- ![application-started .png](application-started%20.png)
+![alt text](<application started  and filter initialized.png>)
 
 ---
 
@@ -37,26 +37,18 @@
   - This class should be called when a session is created . 
   - And this method returns , o/p : [SessionCounterListener]New Session Created. Active Sessions:
 
-**Example**
-
----
-
-
----
-
 
 - STEP 3:
   - Set Breakpoint at requestInitialized() of ServletRequestListener :
   - This method is called when a request starts.
   - It logs the client's IP address using getServletRequest().getRemoteAddr().
   - This method called to log or track where requests are coming from.
-  - This is triggered for every single request (POST). 
-  - 0/p
+  - This is triggered for every single request (POST).  
 
 **Example**
 
 ---
-
+![alt text](<ServletRequestListener . request received ip.png>)
 
 ---
 
@@ -65,17 +57,15 @@
   - Set Breakpoints in: doFilter() of filter . The class implements Filter interface, which means:
     It can intercept and process HTTP requests/responses.
   - init() – Runs once when the filter is first created (during app startup).
-  - o/p :
   - doFilter() – Called before and after servlet execution.
   - This method Logs the incoming request’s IP address using request.getRemoteAddr() method .
-  - o/p :
   - Filters let you intercept requests/responses before reaching the servlet.
   - ```chain.doFilter(request, response);``` : Passes the request to the next filter or servlet.
 
 **Example**
 
 ---
-
+![alt text](<request received at- filter .png>)
 
 ---
 
@@ -92,14 +82,41 @@
   - insertStudentIntoDatabase : Database connected successfully
 
 
+**Example**
+
+---
+![alt text](<dopost method.png>)
+
+![alt text](<database created successfully.png>)
+
+---
+
+
 - Step - 6 
   - Then again it came to filter interface after response sent back to client .
   - LoggingFilter : Response sent back to: {}",
+
+
+**Example**
+
+---
+![alt text](<response after completion of post request from filter.png>)
+
+---
+
 
 - step - 7
   - After the request process is complete . It goes to again requestDestroyed() of ServletRequestListener.
   - requestDestroyed : It called when request process from client is complete .
   - o/p : request processing finnished . 
+
+
+**Example**
+
+---
+![alt text](<ServletRequestListener log for completion of request.png>)
+
+---  
 
 step - 8 
  - Then in last when server tomcat stopped it goes to destroy() method of filter and contextDestroyed() of ServletContextListener
@@ -109,8 +126,18 @@ step - 8
 
 **Example**
 
+---
+![alt text](<filter log after shutdown tomcat server.png>)
+
+![alt text](<contextDestroyed (application-stoped ).png>)
+
+---  
+
+**Example**
+
 - follow these complete logs for more clarification
 
-```
+---
+![alt text](<complete log.png>)
 
-```
+---

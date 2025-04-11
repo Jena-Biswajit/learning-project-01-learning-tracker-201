@@ -2,8 +2,6 @@ package com.example.servlets;
 
 import java.io.*;
 import java.sql.*;
-import java.io.IOException;
-import java.io.BufferedReader;
 import java.util.Enumeration;
 
 import com.example.daos.StudentDao;
@@ -21,8 +19,8 @@ import org.slf4j.LoggerFactory;
 @WebServlet("/student")
 public class StudentServletExamples extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(StudentServletExamples.class);
-    private ObjectMapper objectMapper ; // Jackson ObjectMapper
-    private StudentDao studentDao  ;
+    private ObjectMapper objectMapper;
+    private StudentDao studentDao;
 
     @Override
     public void init() throws ServletException {
@@ -35,7 +33,6 @@ public class StudentServletExamples extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         logger.info("[StudentServletExamples]Received POST request for Students");
-
 
         // Log Request Headers
         Enumeration<String> headerNames = request.getHeaderNames();
@@ -70,7 +67,9 @@ public class StudentServletExamples extends HttpServlet {
         // Insert Student into database
         boolean inserted = false;
         try {
-            inserted = studentDao.save(student) ;
+            inserted = studentDao.save(student);
+            // OR use below method if you're not using DAO
+            // inserted = insertStudentIntoDatabase(student);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -88,7 +87,4 @@ public class StudentServletExamples extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert student");
         }
     }
-
-    // Method to insert Student into the database
-
 }
