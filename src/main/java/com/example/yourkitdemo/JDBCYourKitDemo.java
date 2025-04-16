@@ -33,7 +33,7 @@ public class JDBCYourKitDemo {
 
             // 👇 Add this delay to keep app alive for profiling
             System.out.println("Sleeping for profiling... check YourKit now.");
-            Thread.sleep(60000); // 60 seconds
+            Thread.sleep(300000); // 60 seconds
 
             statement.close();
             connection.close();
