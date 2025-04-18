@@ -2,8 +2,6 @@ package com.example;
 
 import java.io.*;
 import java.sql.*;
-import java.io.IOException;
-import java.io.BufferedReader;
 import java.util.Enumeration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -92,8 +90,11 @@ public class StudentServletExamples extends HttpServlet {
 
             logger.info("[StudentServletExamples]Database connected successfully!");
 
-                statement.setInt(1, student.getId());
-                statement.setString(3, student.getName());
+                // statement.setInt(1, student.getId());
+                // statement.setString(3, student.getName());
+                // statement.setInt(2, student.getAge());
+
+                statement.setString(1, student.getName());
                 statement.setInt(2, student.getAge());
 
             int rowsInserted = statement.executeUpdate();
