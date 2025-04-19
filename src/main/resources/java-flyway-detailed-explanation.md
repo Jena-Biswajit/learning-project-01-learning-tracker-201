@@ -80,10 +80,10 @@ public class JdbcFlywayExample {
 
 **O/p**
 ```
-![Image](https://github.com/user-attachments/assets/11a203cc-3bb1-45f0-a8f8-8fd04b7a803b)
+<img width="1335" alt="Image" src="https://github.com/user-attachments/assets/568787fe-2d45-4ef6-83cf-3abd3582246a" />
 ```
 **Database table**
 ```
-![Image](https://github.com/user-attachments/assets/dc1d052d-ce07-4009-a224-171169eb4869)
+<img width="1310" alt="Image" src="https://github.com/user-attachments/assets/ed6c1106-5620-4c47-81d3-5d2af6fb8052" />
 ```
 
