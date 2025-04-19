@@ -79,11 +79,11 @@ public class JdbcFlywayExample {
 ```
 
 **O/p**
-```
-<img width="1335" alt="Image" src="https://github.com/user-attachments/assets/568787fe-2d45-4ef6-83cf-3abd3582246a" />
-```
+
+<img width="1335" alt="Image" src="https://github.com/user-attachments/assets/e420c22e-1994-4826-b067-b824113d8073" />
+
 **Database table**
-```
+
 <img width="1310" alt="Image" src="https://github.com/user-attachments/assets/ed6c1106-5620-4c47-81d3-5d2af6fb8052" />
-```
+
 
