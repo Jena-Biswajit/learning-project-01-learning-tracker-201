@@ -141,7 +141,5 @@ public class AbstractFactoryTestJUnit {
 | Concrete Product  | `WindowsButton`, `MacOSButton`   |
 | Client            | `Application`        |
 
----
 
-Ready for the next pattern (**Observer**)?
 
