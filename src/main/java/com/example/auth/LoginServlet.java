@@ -1,49 +1,44 @@
 package com.example.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        User user = mapper.readValue(req.getInputStream(), User.class); // Deserialize JSON
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
 
         try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getPassword());
+            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                // credentials valid → generate token
                 String token = UUID.randomUUID().toString();
-                TokenStore.tokenMap.put(token, user.getUsername());
+                TokenStore.tokenMap.put(token, username);
 
-                resp.setContentType("application/json");
-                mapper.writeValue(resp.getOutputStream(), new TokenResponse(token)); // Serialize response
+                resp.setStatus(HttpServletResponse.SC_OK);
+                out.printf("{\"token\":\"%s\"}", token);
             } else {
+                // invalid credentials
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                resp.getWriter().write("Invalid credentials");
+                out.println("{\"message\":\"Invalid credentials\"}");
             }
         } catch (SQLException e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
-        }
-    }
-
-    // Simple inner class to return token as JSON
-    public static class TokenResponse {
-        public String token;
-
-        public TokenResponse(String token) {
-            this.token = token;
+            out.printf("{\"error\":\"%s\"}", e.getMessage());
         }
     }
 }

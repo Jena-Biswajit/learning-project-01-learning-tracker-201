@@ -1,46 +1,54 @@
 package com.example.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.example.auth.DBUtil;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 
 @WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        User user = objectMapper.readValue(req.getReader(), User.class);
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
 
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+
+        //  Using DBUtil here
         try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?");
-            stmt.setString(1, user.getUsername());
-            ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
+            // Check if user already exists
+            String checkQuery = "SELECT COUNT(*) FROM users WHERE username = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+            checkStmt.setString(1, username);
+            ResultSet rs = checkStmt.executeQuery();
+            rs.next();
+
+            if (rs.getInt(1) > 0) {
                 resp.setStatus(HttpServletResponse.SC_CONFLICT); // 409
-                resp.getWriter().write("Username already exists");
+                out.println("{\"message\": \"User already exists\"}");
                 return;
             }
 
-            stmt = conn.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)");
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getPassword());
-            stmt.executeUpdate();
+            // Insert new user
+            String insertQuery = "INSERT INTO users (username, password) VALUES (?, ?)";
+            PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
+            insertStmt.setString(1, username);
+            insertStmt.setString(2, password); // plain password for now, will improve later
+            insertStmt.executeUpdate();
 
-            resp.setStatus(HttpServletResponse.SC_CREATED); // 201
-            resp.getWriter().write("User created");
+            resp.setStatus(HttpServletResponse.SC_OK);
+            out.println("{\"message\": \"Signup successful\"}");
+
         } catch (SQLException e) {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
-            e.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            out.println("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
 }

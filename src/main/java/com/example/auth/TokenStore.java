@@ -1,7 +1,9 @@
 package com.example.auth;
-import java.util.Map;
-import java.util.HashMap;
-public class TokenStore {
-    public static final Map<String, String> tokenMap = new HashMap<>();
-}
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class TokenStore {
+    // token → username
+    public static final Map<String, String> tokenMap = new ConcurrentHashMap<>();
+}

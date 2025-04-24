@@ -5,9 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>login-signup-token-auth</artifactId>
+    <artifactId>StudentServletExamples</artifactId>
     <version>1.0</version>
-    <packaging>war</packaging> <!-- Ensures WAR file generation -->
+    <packaging>war</packaging>
+
     <dependencies>
         <!-- JUnit for Testing -->
         <dependency>
@@ -45,46 +46,33 @@
             <version>2.0.9</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version> <!-- or any other stable version like 8.0.32 -->
-        </dependency>
-
-
+        <!-- Logback for SLF4J -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.4.14</version>
         </dependency>
 
-        <!-- Flyway core -->
+        <!-- MySQL Connector (use updated coordinates) -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+
+        <!-- Flyway Core -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>8.5.13</version>
+            <version>9.22.3</version>
         </dependency>
 
-        <!-- ✅ Flyway MySQL support (you were missing this!) -->
+        <!-- Flyway MySQL Support (optional for older versions) -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-mysql</artifactId>
-            <version>8.5.13</version>
+            <version>9.22.3</version>
         </dependency>
-
-        <!-- MySQL JDBC driver -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.27</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.15.2</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -102,19 +90,33 @@
                 </configuration>
             </plugin>
 
-                <plugin>
-                    <groupId>org.flywaydb</groupId>
-                    <artifactId>flyway-maven-plugin</artifactId>
-                    <version>9.22.3</version>
-                </plugin>
-
-            <!-- War Plugin (for building a web application) -->
+            <!-- WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <!-- Flyway Plugin -->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>9.22.3</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3306/mydatabase</url>
+                    <user>root</user>
+                    <password>subhasmita</password>
+                    <schemas>
+                        <schema>mydatabase</schema>
+                    </schemas>
+                    <locations>
+                        <location>filesystem:db/migration</location>
+                    </locations>
+                    <!-- Flyway Baseline Configuration -->
+                    <baselineOnMigrate>true</baselineOnMigrate>
                 </configuration>
             </plugin>
         </plugins>
@@ -125,6 +127,4 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
 </project>
-

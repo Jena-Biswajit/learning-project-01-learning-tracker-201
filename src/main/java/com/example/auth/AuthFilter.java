@@ -1,33 +1,45 @@
 package com.example.auth;
 
-import java.io.IOException;
+import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.logging.Filter;
-import java.util.logging.LogRecord;
 
-@WebFilter("/api/hello")
+import java.io.IOException;
+
+@WebFilter("/api/*")
 public class AuthFilter implements Filter {
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) res;
 
-        String token = request.getHeader("token");
-        if (token != null && TokenStore.tokenMap.containsKey(token)) {
-            chain.doFilter(req, res);
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Initialization code, if needed
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+
+        String token = req.getHeader("Authorization");
+
+        if (token == null || !TokenStore.tokenMap.containsKey(token)) {
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+            resp.getWriter().println("{\"message\": \"Unauthorized access\"}");
         } else {
-            response.setStatus(403);
-            response.getWriter().write("Forbidden: Invalid token");
+            // Token is valid, proceed with the request
+            chain.doFilter(request, response);
         }
     }
 
     @Override
-    public boolean isLoggable(LogRecord record) {
-        return false;
+    public void destroy() {
+        // Cleanup code, if needed
     }
 }
