@@ -15,7 +15,7 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         resp.setContentType("application/json");
-        PrintWriter out = resp.getWriter();
+        PrintWriter out = resp.getWriter(); // print the formatted output to streams or files ex:
 
         try (Connection conn = DBUtil.getConnection()) {
             String query = "SELECT * FROM users WHERE username = ? AND password = ?";
