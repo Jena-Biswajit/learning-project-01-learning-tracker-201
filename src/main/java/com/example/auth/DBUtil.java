@@ -21,6 +21,7 @@ public class DBUtil {
         flyway.migrate();  // Migrate DB to latest version
     }
 
+
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }

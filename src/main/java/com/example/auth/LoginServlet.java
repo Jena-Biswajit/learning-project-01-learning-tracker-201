@@ -26,7 +26,8 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
                 // credentials valid → generate token
-                String token = UUID.randomUUID().toString();
+                //UUIDs:A Universally Unique IDentifier (UUID) URN Namespace, section 4.2 "Algorithms for Creating a Time-Based UUID".
+                String token = UUID.randomUUID().toString(); // The UUID is generated using a cryptographically strong pseudo random number generator.
                 TokenStore.tokenMap.put(token, username);
 
                 resp.setStatus(HttpServletResponse.SC_OK);
