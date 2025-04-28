@@ -1,4 +1,6 @@
-package com.example.auth;
+package com.example.auth.filters;
+
+import com.example.auth.util.TokenManager;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -15,9 +17,10 @@ import java.io.IOException;
 @WebFilter("/api/*")
 public class AuthFilter implements Filter {
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        // Initialization code, if needed
+    private final TokenManager tokenManager;
+
+    public AuthFilter(TokenManager tokenManager) {
+        this.tokenManager = tokenManager;
     }
 
     @Override
@@ -29,17 +32,21 @@ public class AuthFilter implements Filter {
 
         String token = req.getHeader("Authorization");
 
-        if (token == null || !TokenStore.tokenMap.containsKey(token)) {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
-            resp.getWriter().println("{\"message\": \"Unauthorized access\"}");
+        if (token == null || !tokenManager.validateToken(token)) {
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+            resp.getWriter().println("{\"message\": \"Unauthorized\"}");
         } else {
-            // Token is valid, proceed with the request
-            chain.doFilter(request, response);
+            chain.doFilter(request, response);  // Token valid, proceed
         }
     }
 
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Initialize filter if needed
+    }
+
+    @Override
     public void destroy() {
-        // Cleanup code, if needed
+        // Clean up filter if needed
     }
 }

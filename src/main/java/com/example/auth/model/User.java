@@ -1,4 +1,4 @@
-package com.example.auth;
+package com.example.auth.model;
 
 public class User {
     private String username;
@@ -6,6 +6,10 @@ public class User {
 
     // Default constructor (needed for Jackson)
     public User() {
+    }
+
+    public User(String username, String password) {
+
     }
 
     public String getUsername() {
