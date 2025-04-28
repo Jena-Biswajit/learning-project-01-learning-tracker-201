@@ -8,8 +8,10 @@ public class User {
     public User() {
     }
 
+    // parameterized constructor to initialize username and password
     public User(String username, String password) {
-
+       this.username = username;
+       this.password = password;
     }
 
     public String getUsername() {
