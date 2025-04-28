@@ -3,7 +3,9 @@ package com.example.auth.servlet;
 import com.example.auth.dao.UserDAO;
 import com.example.auth.model.Token;
 import com.example.auth.model.User;
+import com.example.auth.model.Error;
 import com.example.auth.service.AuthService;
+import com.example.auth.util.DBConnectionManager;
 import com.example.auth.util.TokenManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -19,18 +21,23 @@ import java.sql.SQLException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private final AuthService authService;
+    private AuthService authService;
 
-    // Constructor where we inject dependencies: UserDAO and TokenManager
+    // No-argument constructor
     public LoginServlet() {
-        Connection conn = null;
-        this.authService = new AuthService(new UserDAO(conn), new TokenManager());
+        // Initialize the authService with the required dependencies
+        this.authService = new AuthService(new UserDAO(), new TokenManager());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
 
+        try {
+            Connection conn = DBConnectionManager.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         // Create ObjectMapper for JSON conversion
         ObjectMapper mapper = new ObjectMapper();
 

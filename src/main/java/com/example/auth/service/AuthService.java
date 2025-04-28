@@ -1,10 +1,9 @@
-
 package com.example.auth.service;
 
-        import com.example.auth.dao.UserDAO;
-        import com.example.auth.util.TokenManager;
-        import com.example.auth.model.User;
-        import java.sql.SQLException;
+import com.example.auth.dao.UserDAO;
+import com.example.auth.util.TokenManager;
+import com.example.auth.model.User;
+import java.sql.SQLException;
 
 public class AuthService {
 
@@ -17,8 +16,8 @@ public class AuthService {
         this.tokenManager = tokenManager;
     }
 
-    // ✅ Signup service (for creating a new user)
-    public String signup(User user) throws SQLException {
+    //  Signup service (for creating a new user)
+    public String signup(User user) throws SQLException {  // Removed static
         // Check if the user already exists by checking the username
         if (userDAO.isUserExists(user.getUsername())) {
             return null;  // User already exists
@@ -31,7 +30,7 @@ public class AuthService {
         return tokenManager.generateToken(user.getUsername());
     }
 
-    // ✅ Login service (for authenticating user)
+    //  Login service (for authenticating user)
     public String login(User user) throws SQLException {
         // Validate the user's credentials using the UserDAO
         if (userDAO.validateUser(user.getUsername(), user.getPassword())) {
@@ -45,6 +44,7 @@ public class AuthService {
 
     // Method to authenticate user using username and password (alternative for calling login)
     public String authenticateUser(String username, String password) throws SQLException {
+
         User user = new User(username, password);  // Create a new User object
         return login(user);  // Delegate to login method
     }
