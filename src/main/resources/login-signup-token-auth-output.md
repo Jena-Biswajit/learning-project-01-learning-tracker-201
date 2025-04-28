@@ -64,5 +64,5 @@
 
 **Authorization without token**
 
-![Image](https://github.com/user-attachments/assets/f563b4ed-664c-482b-81d4-12dd22f251e1)
+![Image](https://github.com/user-attachments/assets/609fb1bd-c87c-40a4-9504-f526ba1085b0)
 
