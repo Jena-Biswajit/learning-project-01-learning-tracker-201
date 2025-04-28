@@ -1,0 +1,116 @@
+package com.example;
+
+import java.io.*;
+import java.sql.*;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.util.Enumeration;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@WebServlet("/student")
+public class StudentServletExamples extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(StudentServletExamples.class);
+    private final ObjectMapper objectMapper = new ObjectMapper(); // Jackson ObjectMapper
+
+    // Database Credentials
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/student?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static final String JDBC_USER = "root"; // Change username
+    private static final String JDBC_PASSWORD = "subhasmita"; // Change password
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        logger.info("[StudentServletExamples]Received POST request for Students");
+
+
+        // Log Request Headers
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String name = headerNames.nextElement();
+            String value = request.getHeader(name);
+            System.out.println("[StudentServletExamples]Request Header: " + name + " = " + value);
+        }
+
+        // Add a custom response header
+        response.setHeader("X-Powered-By", "ServletHeaderExample");
+        response.setContentType("application/json");
+
+        PrintWriter out = response.getWriter();
+        out.print("{\"message\":\"Student created!\"}");
+        out.flush();
+
+        // Read JSON request body
+        StringBuilder jsonBuffer = new StringBuilder();
+        String line;
+        try (BufferedReader reader = request.getReader()) {
+            while ((line = reader.readLine()) != null) {
+                jsonBuffer.append(line);
+            }
+        }
+        String jsonInput = jsonBuffer.toString();
+        logger.info("Received JSON: {}", jsonInput);
+
+        // Convert JSON to Student object
+        Student student = objectMapper.readValue(jsonInput, Student.class);
+
+        // Insert Student into database
+        boolean inserted = false;
+        try {
+            inserted = insertStudentIntoDatabase(student);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (inserted) {
+            // Convert Student object back to JSON
+            String jsonResponse = objectMapper.writeValueAsString(student);
+
+            // Set response headers and write JSON output
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonResponse);
+
+            logger.info("[StudentServletExamples]Updated Student JSON sent: {}", jsonResponse);
+        } else {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert student");
+        }
+    }
+
+    // Method to insert Student into the database
+    private boolean insertStudentIntoDatabase(Student student) throws ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(
+                     "INSERT INTO student (name, age) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+
+            logger.info("[StudentServletExamples]Database connected successfully!");
+
+                statement.setInt(1, student.getId());
+                statement.setString(3, student.getName());
+                statement.setInt(2, student.getAge());
+
+            int rowsInserted = statement.executeUpdate();
+
+            // Retrieve generated ID if needed
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        student.setId(generatedKeys.getInt(1)); // Assuming Student has a setId() method
+                    }
+                }
+            }
+
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            logger.error("[StudentServletExamples] Database error: {}", e.getMessage(), e);
+        }
+        return false;
+    }
+}
