@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-    // ✅ Method to check if a user already exists
+    //  Method to check if a user already exists
     public boolean isUserExists(String username) throws SQLException {
         String query = "SELECT COUNT(*) FROM users WHERE username = ?";
         Connection conn = DBConnectionManager.getConnection();
@@ -24,7 +24,7 @@ public class UserDAO {
         }
     }
 
-    // ✅ Method to create a new user
+    //  Method to create a new user
     public void createUser(User user) throws SQLException {
         String insertQuery = "INSERT INTO users (username, password) VALUES (?, ?)";
         Connection conn = DBConnectionManager.getConnection();
@@ -35,7 +35,7 @@ public class UserDAO {
         }
     }
 
-    // ✅ Method to validate username and password during login
+    //  Method to validate username and password during login
     public boolean validateUser(String username, String password) throws SQLException {
         String query = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
         Connection conn = DBConnectionManager.getConnection();
