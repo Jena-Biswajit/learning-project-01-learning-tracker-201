@@ -65,6 +65,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Filter will execute for any url that starts with /api/ because
+ * filter uses a wildcard pattern /api/*
+ * So for below url pattern the filter exists.
+ * /api/welcome (200)
+ * /api/hello (200)
+ * /api/abc (404) because we dont have implemented any servlet or filter with /api/abc
+ *
+ *
+ * /demo it wont execute in filter as the url pattern never matches
+ */
 @WebServlet("/api/*")
 public class AuthFilter implements Filter {
 
@@ -93,7 +104,9 @@ public class AuthFilter implements Filter {
         "method", req.getMethod()
     ));
 
-    filterChain.doFilter(servletRequest, servletResponse);
+    // before this anything happens is pre processing
+    filterChain.doFilter(servletRequest, servletResponse); // delegates request to next filter or servlet
+    // after this anything happesn is post processing
 
     System.out.println("req post-processing: "+ Map.of(
         "url", req.getRequestURI(),
