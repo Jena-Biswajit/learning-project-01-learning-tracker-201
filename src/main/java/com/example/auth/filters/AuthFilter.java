@@ -57,6 +57,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.WebServlet;
@@ -76,7 +77,7 @@ import java.util.Map;
  *
  * /demo it wont execute in filter as the url pattern never matches
  */
-@WebServlet("/api/*")
+@WebFilter("/api/*")
 public class AuthFilter implements Filter {
 
   @Override
