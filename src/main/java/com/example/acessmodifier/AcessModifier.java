@@ -7,7 +7,7 @@ package com.example.acessmodifier;
     protected int protectedVar = 3;
     int defaultVar =0 ;
 
-    public void setPublicVar(){
+    public static void setPublicVar(){
         System.out.println("public method");
     }
 
